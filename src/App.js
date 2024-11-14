@@ -65,13 +65,13 @@ const App = () => {
   const permissions = useSelector((state) => state.permissions.permissions); // Thay đổi để lấy permissions chung
 
   // Kiểm tra trạng thái đăng nhập khi app load
-  useEffect(() => {
+useEffect(() => {
     const userFromCookies = Cookies.get('user');
     if (userFromCookies) {
-      dispatch(checkAuth());
-      dispatch(loadPermissions());
+        dispatch(checkAuth());
+        dispatch(loadPermissions());
     }
-  }, [dispatch]);
+}, [dispatch]);
 
   return (
     <Routes>

@@ -92,11 +92,11 @@ const Header = () => {
                                                     <div className="col-md-6 col-sm-6 sub-menu-data">
                                                         <Link className="nav-menu-link" to="/customer/product">Túi</Link>
                                                         <ul>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/small-bag">Túi cỡ nhỏ</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/medium-bag">Túi cỡ trung </Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/large-bag">Túi cỡ lớn</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/backpack">Balo</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/Clutch">Ví - Clutch</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/túi-cỡ-nhỏ">Túi cỡ nhỏ</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/túi-cỡ-trung">Túi cỡ trung </Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/túi-cỡ-lớn">Túi cỡ lớn</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/balo">Balo</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/ví-clutch">Ví - Clutch</Link></li>
                                                         </ul>
                                                     </div>
                                                     <div className="col-md-6 col-sm-6 sub-menu-data">

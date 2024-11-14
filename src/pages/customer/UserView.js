@@ -102,7 +102,7 @@ const UserView = () => {
             setUpdateUserMessage('Update successful!');
             setShowAlert(true);
             fetchUserData();
-            alert("hủy đơn thành công");
+            alert("cập nhật thành công");
             resetForm();
         } catch (error) {
             console.error('Error:', error);

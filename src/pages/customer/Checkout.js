@@ -186,7 +186,9 @@ const Checkout = () => {
 
             // Xóa các cart items khỏi cơ sở dữ liệu
             await deleteCartItems(cartItems);
-            await handleRemoveItem(cartItems);
+             for (const item of cartItems) {
+                await handleRemoveItem(item.id, item.quantity);
+            }
 
             // Cập nhật Redux và localStorage
             dispatch(updateCartCount(0)); // Đặt số lượng giỏ hàng về 0

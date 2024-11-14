@@ -8,7 +8,12 @@ const NewProduct = () => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [sortOption, setSortOption] = useState('manual');
     const { category } = useParams();
-    const capitalizedCategory = category.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+const capitalizedCategory = category
+    .replace(/-/g, ' ') // Thay thế dấu gạch ngang bằng khoảng trắng
+    .toLowerCase() // Chuyển toàn bộ chuỗi về chữ thường
+    .split(' ') // Tách chuỗi thành mảng từ
+    .map((word, index) => index === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word) // Chỉ viết hoa chữ cái đầu tiên của từ đầu tiên
+    .join(' '); // Kết hợp lại thành chuỗi
 
     useEffect(() => {
         const fetchData = async () => {

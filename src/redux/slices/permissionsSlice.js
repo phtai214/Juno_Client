@@ -14,28 +14,50 @@ const permissionsSlice = createSlice({
     initialState,
     reducers: {
         setPermissions: (state, action) => {
-            const permissionsArray = action.payload
-                .replace(/^"(.*)"$/, '$1')  // Loại bỏ dấu ngoặc kép
-                .split(',');  // Tách chuỗi thành mảng
+            const permissionsString = action.payload || '';
 
-            // Kiểm tra từng quyền và cập nhật state
-            state.permissions.canManageProducts = permissionsArray.includes('Manage products');
-            state.permissions.canManageOrders = permissionsArray.includes('Manage orders');
-            state.permissions.canManageCustomers = permissionsArray.includes('Manage customers');
-            state.permissions.canManageShops = permissionsArray.includes('Manage Shops');
+    // Tạo một đối tượng permissions mặc định
+    const permissionsObject = {
+        canManageProducts: false,
+        canManageOrders: false,
+        canManageCustomers: false,
+        canManageShops: false,
+    };
 
-            // Lưu permissions vào localStorage
-            localStorage.setItem('permissions', JSON.stringify(state.permissions));
-        },
-        loadPermissions: (state) => {
-            const storedPermissions = localStorage.getItem('permissions');
-            if (storedPermissions) {
-                state.permissions = JSON.parse(storedPermissions);
-            }
-        },
+    // Tách chuỗi thành mảng và kiểm tra từng quyền
+    const permissionsArray = permissionsString.split(',').map(item => item.trim());
+
+    permissionsObject.canManageProducts = permissionsArray.includes('Manage products');
+    permissionsObject.canManageOrders = permissionsArray.includes('Manage orders');
+    permissionsObject.canManageCustomers = permissionsArray.includes('Manage customers');
+    permissionsObject.canManageShops = permissionsArray.includes('Manage Shops');
+
+    // Cập nhật state với đối tượng permissions mới
+    state.permissions = permissionsObject;
+
+    // Lưu permissions vào localStorage
+            localStorage.setItem('permissions', permissionsObject);
+            
+},
+      loadPermissions: (state) => {
+    const storedPermissions = localStorage.getItem('permissions');
+    if (storedPermissions) {
+        try {
+            state.permissions = JSON.parse(storedPermissions);
+        } catch (error) {
+            console.error('Error parsing permissions from localStorage:', error);
+            // Đặt lại permissions về default nếu có lỗi
+            state.permissions = {
+                canManageProducts: false,
+                canManageOrders: false,
+                canManageCustomers: false,
+                canManageShops: false,
+            };
+        }
+    }
+},
     },
 });
-
 // Xuất actions và reducer
 export const { setPermissions, loadPermissions } = permissionsSlice.actions;
 export default permissionsSlice.reducer;

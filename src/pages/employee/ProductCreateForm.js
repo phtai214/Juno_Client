@@ -401,7 +401,7 @@ const ProductCreateFormEmployee = () => {
           Thêm Biến Thể Mới
         </button>
 
-        <button type="submit">Create Product</button>
+        <button className="btn-create-product"  type="submit">Create Product</button>
       </form>
     </div>
   );
