@@ -83,6 +83,8 @@
 
     // Mỗi mục trong kết quả tìm kiếm
     .searchResultItem {
+        text-decoration: none;
+        color:black;
         display: flex;
         align-items: center;
         padding: 10px;

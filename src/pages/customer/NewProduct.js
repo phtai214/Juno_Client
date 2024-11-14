@@ -14,7 +14,7 @@ const NewProduct = () => {
                 const response = await axios.get('http://localhost:3001/api/v1/product/products');
                 if (Array.isArray(response.data.products)) {
                     const newProducts = response.data.products
-                        .filter(product => product.tag && product.tag.includes('new'))
+                        .filter(product => product.tag && product.tag.includes('New'))
                         .map(product => ({
                             ...product,
                             image_url: product.image_url.replace(/"/g, ''),

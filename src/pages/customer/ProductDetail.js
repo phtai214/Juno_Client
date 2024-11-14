@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import "../../style/pages/customer/ProductDetail.scss";
 import axios from 'axios';
 import { addItem, updateCartCount } from '../../redux/slices/cartSlice';
 const ProductDetail = () => {
     const { slug } = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [product, setProduct] = useState(null);
     const [detail, setDetail] = useState(true);
@@ -66,10 +67,31 @@ const ProductDetail = () => {
     const handleColorClick = (color) => {
         setSelectedColor(color);
     };
+    const handleCheckOut = async () => {
+        try {
 
+            if (product.quantity <= 0) {
+                alert('Sản phẩm đã hết hàng.');
+                return;
+            }
+            // Gọi hàm handleAddToCart và chờ kết quả
+            await handleAddToCart(product);
+
+            // Sau khi thêm vào giỏ hàng thành công, chuyển hướng đến trang checkout
+            navigate('/customer/checkout');
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+            // Xử lý lỗi nếu cần
+        }
+    };
     const handleAddToCart = async (product) => {
         const userId = localStorage.getItem('userId');
         const productId = product.id;
+
+        if (product.quantity <= 0) {
+            alert('Sản phẩm đã hết hàng.');
+            return;
+        }
 
         // Kiểm tra xem đã chọn màu chưa
         if (!selectedColor) {
@@ -85,9 +107,10 @@ const ProductDetail = () => {
             try {
                 const cartResponse = await axios.get('http://localhost:3001/api/v1/cart/carts');
                 let cartId;
+                const userCart = cartResponse.data.find(cart => cart.user_id === Number(userId));
 
-                if (cartResponse.data.length > 0 && cartResponse.data[0].user_id === Number(userId)) {
-                    cartId = cartResponse.data[0].id;
+                if (userCart) {
+                    cartId = userCart.id;
                 } else {
                     const createCartResponse = await axios.post('http://localhost:3001/api/v1/cart/carts', { user_id: userId });
                     cartId = createCartResponse.data.cart.id;
@@ -100,30 +123,49 @@ const ProductDetail = () => {
                     color: selectedColor,
                     variation_id: variationId // Thêm variation_id vào đây
                 });
-
-                setCartCount(prevCount => prevCount + 1);
-                localStorage.setItem('cart', JSON.stringify(true));
-                dispatch(updateCartCount(cartCount + 1));
+                localStorage.setItem('cartInitialized', 'true'); // Đánh dấu rằng giỏ hàng đã được khởi tạo
+                const newCount = (JSON.parse(localStorage.getItem('cartCount')) || 0) + 1;
+                setCartCount(newCount);
+                localStorage.setItem('cartCount', newCount);
+                dispatch(updateCartCount(newCount));
                 alert('Sản phẩm đã được thêm vào giỏ hàng!');
             } catch (error) {
-                console.error('Error adding product to cart:', error);
+                console.log('Error adding product to cart:', error);
                 alert('Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng.');
             }
         } else {
-            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-            const existingItem = cartItems.find(item => item.id === product.id && item.color === selectedColor);
+            // Xử lý giỏ hàng tạm thời
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            // Kiểm tra xem cartItems có phải là một mảng không
+            if (!Array.isArray(cartItems)) {
+                console.error('cartItems is not an array:', cartItems);
+                cartItems = []; // Đặt lại cartItems thành mảng rỗng nếu không phải là mảng
+            }
+
+            const existingItem = cartItems.find(item => item.id === productId && item.color === selectedColor);
 
             if (existingItem) {
                 existingItem.quantity += 1; // Tăng số lượng nếu sản phẩm đã tồn tại
             } else {
-                const cartItem = { ...product, quantity: 1, color: selectedColor, variation_id: variationId }; // Thêm variation_id
+                const cartItem = {
+                    id: productId,
+                    name: product.name, // Tên sản phẩm
+                    price: product.price, // Giá sản phẩm
+                    imgURL: selectedVariation ? selectedVariation.imageUrl : product.image_url, // Hình ảnh sản phẩm
+                    quantity: 1,
+                    color: selectedColor,
+                    variation_id: variationId
+                };
                 cartItems.push(cartItem);
             }
 
-            dispatch(updateCartCount(cartCount + 1));
+            // Cập nhật Redux và localStorage
+            const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+            dispatch(updateCartCount(totalQuantity));
             dispatch(addItem(cartItems)); // Cập nhật vào Redux
             localStorage.setItem('cartItems', JSON.stringify(cartItems));
-            setCartCount(prevCount => prevCount + 1);
+            setCartCount(totalQuantity);
             localStorage.setItem('cart', JSON.stringify(true));
             alert('Sản phẩm đã được thêm vào giỏ hàng tạm thời!');
         }
@@ -162,6 +204,7 @@ const ProductDetail = () => {
     };
 
     const fetchReviews = async (productId) => {
+        console.log("check productId >>>", productId)
         try {
             const response = await axios.get(`http://localhost:3001/api/v1/review/product/${productId}`);
             setReviews(response.data);
@@ -184,9 +227,13 @@ const ProductDetail = () => {
                     const orderItemsResponse = await axios.get(`http://localhost:3001/api/v1/orderItem/order/${order.id}`);
                     const orderItems = orderItemsResponse.data;
                     // Thêm product_id từ order items vào danh sách đã mua
-                    orderItems.forEach(item => {
-                        purchasedProducts.push(item.variation.productId);
-                    });
+                    if (Array.isArray(orderItems)) {
+                        orderItems.forEach(item => {
+                            purchasedProducts.push(item.variation.productId);
+                        });
+                    } else {
+                        console.error(`Dữ liệu không phải là mảng cho order ${order.id}:`, orderItems);
+                    }
                 }
 
                 // Kiểm tra xem sản phẩm hiện tại có trong danh sách đã mua không
@@ -235,10 +282,10 @@ const ProductDetail = () => {
                         ))}
                     </div>
                     <div className="btn-product-order">
-                        <button className="order-now" onClick={() => handleAddToCart(product)}>Mua ngay</button>
-                        <button className="order-set-trendding">Mua set trendding</button>
+                        <button className="order-now" onClick={() => handleAddToCart(product)}>Thêm vào giỏ hàng</button>
+                        <button className="order-set-trendding" onClick={() => handleCheckOut(product)} >Mua Ngay</button>
                     </div>
-                    <button className="btn-showroom">Tìm Sản Phẩm Tại ShowRoom</button>
+                    <button className="btn-showroom">Tìm ShowRoom</button>
                     <p><a>Đăng nhập</a> để tích điểm và hưởng quyền lợi thành viên từ JUNO</p>
                     <div className='box-data'>
                         <h6 className="data-freeship">MIỄN PHÍ GIAO HÀNG TOÀN QUỐC</h6>
@@ -321,13 +368,13 @@ const ProductDetail = () => {
                 )}
                 {preserve && (
                     <div className="detail-box-data">
-                        <div class="guideline">
+                        <div className="guideline">
                             <p>HƯỚNG DẪN BẢO QUẢN GIÀY <a href="#"> Xem chi tiết</a></p>
                         </div>
-                        <div class="guideline">
+                        <div className="guideline">
                             <p>HƯỚNG DẪN BẢO QUẢN TÚI XÁCH <a href="#"> Xem chi tiết</a></p>
                         </div>
-                        <div class="guideline">
+                        <div className="guideline">
                             <p>HƯỚNG DẪN BẢO QUẢN PHỤ KIỆN <a href="#"> Xem chi tiết</a></p>
                         </div>
                     </div>
@@ -366,33 +413,41 @@ const ProductDetail = () => {
                     <p>Bạn cần mua sản phẩm này trước khi có thể đánh giá.</p>
                 )}
                 <div className="review-list">
-                    {reviews.map((review, index) => (
-                        <div key={index} className="review-item">
-                            <img className="user-avatar" src={review.user.avatar || 'https://res.cloudinary.com/dhjrrk4pg/image/upload/v1715060332/user_1177568_mxilzq.png'} />
-                            <h6>
-                                {review.user ? review.user.name : 'Không có tên'}
-                                <span>
-                                    {[...Array(review.rating)].map((_, i) => (
-                                        <img
-                                            key={i}
-                                            src="https://res.cloudinary.com/dhjrrk4pg/image/upload/v1730822143/star_12259255_safjun.png"
-                                            alt={`Star ${i + 1}`}
-                                            className="star"
-                                        />
-                                    ))}
-                                    {[...Array(5 - review.rating)].map((_, i) => (
-                                        <img
-                                            key={i + review.rating}
-                                            src="https://res.cloudinary.com/dhjrrk4pg/image/upload/v1730817533/favourite_339922_v2i0fi.png"
-                                            alt={`Empty star ${i + 1}`}
-                                            className="star"
-                                        />
-                                    ))}
-                                </span>
-                            </h6>
-                            <p>{review.comment}</p>
-                        </div>
-                    ))}
+                    {(Array.isArray(reviews) && reviews.length > 0) ? (
+                        reviews.map((review, index) => (
+                            <div key={index} className="review-item">
+                                <img
+                                    className="user-avatar"
+                                    src={review.user?.avatar || 'https://res.cloudinary.com/dhjrrk4pg/image/upload/v1715060332/user_1177568_mxilzq.png'}
+                                    alt="User Avatar"
+                                />
+                                <h6>
+                                    {review.user ? review.user.name : 'Không có tên'}
+                                    <span>
+                                        {[...Array(review.rating)].map((_, i) => (
+                                            <img
+                                                key={i}
+                                                src="https://res.cloudinary.com/dhjrrk4pg/image/upload/v1730822143/star_12259255_safjun.png"
+                                                alt={`Star ${i + 1}`}
+                                                className="star"
+                                            />
+                                        ))}
+                                        {[...Array(5 - review.rating)].map((_, i) => (
+                                            <img
+                                                key={i + review.rating}
+                                                src="https://res.cloudinary.com/dhjrrk4pg/image/upload/v1730817533/favourite_339922_v2i0fi.png"
+                                                alt={`Empty star ${i + 1}`}
+                                                className="star"
+                                            />
+                                        ))}
+                                    </span>
+                                </h6>
+                                <p>{review.comment}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>Không có đánh giá nào.</p> // Hiển thị thông báo nếu không có đánh giá
+                    )}
                 </div>
             </div>
             <div className="maybe-container">

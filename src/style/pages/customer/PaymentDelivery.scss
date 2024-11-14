@@ -1,0 +1,30 @@
+#section-info {
+    padding: 20px;
+    margin : 20px 0;
+    padding:0;
+    
+    .col-lg-9.col-md-9.col-sm-9.col-xs-12{
+        padding-left: 20px;
+        border-left: 1px solid rgb(90, 90, 90) ;
+        h1{
+            font-size: 205%;
+            padding: 10px 0;
+        }
+        h2{
+            font-size: 100%;
+            padding: 10px 0;
+        }
+        h3{
+            font-size: 100%;
+            padding: 10px 0;
+        }
+        .bank-ul{
+            padding:0;
+            .bank-li{
+                list-style:none;
+                padding: 10px;
+            }
+        }
+        
+    }
+}

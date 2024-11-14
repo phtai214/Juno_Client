@@ -1,0 +1,14 @@
+// ReturnPolicy.scss
+.ReturnPolicy-contailer{
+    padding:20px;
+    text-align: center;
+    .ReturnPolicy-title{
+        margin-top: 20px;
+    }
+    .ReturnPolicy-image{
+        width:60%;
+        height:auto;
+        object-fit: cover;
+        padding: 10px 0;
+    }
+}

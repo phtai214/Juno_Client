@@ -4,7 +4,7 @@ import { icons } from "../../app/data/icon";
 import "../../style/components/admin/OrderAnalyticsCard.scss";
 import AnalyticsWidgetSummary from "./AnalyticsWidgetSummary";
 
-const OrderAnalyticsCard = () => {
+const OrderAnalyticsCardEmployee = () => {
     const [totalOrders, setTotalOrders] = useState(0);
     const [percentIncrease, setPercentIncrease] = useState(0);
     const [orderData, setOrderData] = useState([]);
@@ -13,7 +13,7 @@ const OrderAnalyticsCard = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3001/api/v1/order'); // Đường dẫn API cho đơn hàng
-                const data = response.data;
+                const data = response.data.orders;
 
                 // Lấy tháng hiện tại và tháng trước
                 const currentMonth = new Date().getMonth();
@@ -21,12 +21,12 @@ const OrderAnalyticsCard = () => {
 
                 // Tính tổng đơn hàng trong tháng hiện tại và tháng trước
                 const ordersInCurrentMonth = data.filter(order => {
-                    const startDay = new Date(order.createdAt);
+                    const startDay = new Date(order.updated_at);
                     return startDay.getMonth() === currentMonth; // Lọc theo tháng hiện tại
                 });
 
                 const ordersInPreviousMonth = data.filter(order => {
-                    const startDay = new Date(order.createdAt);
+                    const startDay = new Date(order.updated_at);
                     return startDay.getMonth() === previousMonth; // Lọc theo tháng trước
                 });
 
@@ -102,4 +102,4 @@ const OrderAnalyticsCard = () => {
     );
 };
 
-export default OrderAnalyticsCard;
+export default OrderAnalyticsCardEmployee;

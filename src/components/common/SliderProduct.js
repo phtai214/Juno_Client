@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -6,8 +6,38 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import "../../style/components/common/SliderProduct.scss";
-import fakeData from "../../fakeAPI";
+import { useDispatch } from 'react-redux';
+import { fetchProducts } from '../../redux/slices/productSlice';
+import axios from "axios";
+
 const SliderProduct = () => {
+    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/api/v1/product/products');
+                if (Array.isArray(response.data.products)) {
+                    const formattedProducts = response.data.products.map(product => ({
+                        ...product,
+                        image_url: product.image_url.replace(/"/g, ''),
+                    }));
+                    // Lọc các sản phẩm có quantity > 0
+                    const availableProducts = formattedProducts.filter(product => product.quantity > 0);
+                    setProducts(availableProducts);
+                } else {
+                    console.error('Products data is not an array:', response.data.products);
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+
+        fetchData();
+        dispatch(fetchProducts());
+    }, [dispatch]);
+
     return (
         <div className="slider-container">
             <div className="product-slider-flash-sale">
@@ -20,18 +50,19 @@ const SliderProduct = () => {
                     autoplay={{ delay: 4000 }}
                     loop={true}
                 >
-                    {fakeData.map((product, index) => (
+                    {products.map((product, index) => (
                         <SwiperSlide key={index}>
                             <div className="product-slider-item">
-                                <div className="product-slider-image-box">
-                                    <img className="product-slider-image" src={product.variations[0].imageUrl} alt={product.name} />
+                                <Link className="product-slider-image-box" to={`/customer/product/slug/${product.slug}`}>
+                                    <img className="product-slider-image" src={product.image_url} alt={product.name} />
                                     <span className="product-slider-highlight">FLASH SALE</span>
-                                </div>
+                                </Link>
+
                                 <p className="product-slider-title">{product.name}</p>
-                                <p className="product-slider-price">{product.price.toLocaleString()}đ</p>
+                                <p className="price-product">{parseInt(product.price).toLocaleString('vi-VN')}đ</p>
                                 <div className="btn-product-color">
-                                    {product.variations.map((variation, idx) => (
-                                        <button key={idx} className={`btn-color${idx + 1}`} style={{ backgroundColor: variation.color }}></button>
+                                    {product.variations && product.variations.map((variation, i) => (
+                                        <button key={i} className={`btn-color${i + 1}`} style={{ backgroundColor: variation.color }}></button>
                                     ))}
                                 </div>
                                 <button className="btn-pay-flash-sale">Mua giá FLASH SALE</button>

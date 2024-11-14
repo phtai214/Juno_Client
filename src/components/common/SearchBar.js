@@ -2,25 +2,30 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../style/components/common/SearchBar.scss';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 const SearchBar = () => {
     const [isInputVisible, setIsInputVisible] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredProducts, setFilteredProducts] = useState([]);
-    const [products, setProducts] = useState([]); // State to hold products
+    const [products, setProducts] = useState([]);
     const navigate = useNavigate();
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get('http://localhost:3001/api/v1/product/products');
-                setProducts(response.data.products); // Set products from API response
+                setProducts(response.data.products.map(product => ({
+                    ...product,
+                    image_url: product.image_url.replace(/"/g, ''),
+                })));
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
         };
 
         fetchProducts();
-    }, []); // Run once on component mount
+    }, []);
 
     const handleMouseEnter = () => {
         setIsInputVisible(true);
@@ -36,7 +41,6 @@ const SearchBar = () => {
         const value = event.target.value;
         setSearchTerm(value);
 
-        // Filter products based on search term
         const filtered = products.filter(product =>
             product.name.toLowerCase().includes(value.toLowerCase())
         );
@@ -49,9 +53,14 @@ const SearchBar = () => {
         setSearchTerm('');
     };
 
+    const handleProductClick = () => {
+        setIsInputVisible(false); // Hide the input field
+        setFilteredProducts([]);  // Clear the search results
+    };
+
     return (
         <div className="searchFormHeader" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <form className="searchHeader" >
+            <form className="searchHeader" onSubmit={handleSubmit}>
                 <div className={`searchBox ${isInputVisible || searchTerm ? 'input-active' : ''}`}>
                     <input type="hidden" name="type" value="product" autoComplete="off" />
                     {isInputVisible && (
@@ -80,10 +89,15 @@ const SearchBar = () => {
             {isInputVisible && filteredProducts.length > 0 && (
                 <ul className="searchResults">
                     {filteredProducts.map(product => (
-                        <li key={product.id} className="searchResultItem">
-                            <img src={product.image} alt={product.name} style={{ width: '30px', height: '30px', marginRight: '10px' }} />
+                        <Link
+                            to={`/customer/product/slug/${product.slug}`}
+                            key={product.id}
+                            className="searchResultItem"
+                            onClick={handleProductClick} // Add this handler
+                        >
+                            <img src={product.image_url} alt={product.name} style={{ width: '30px', height: '30px', marginRight: '10px' }} />
                             <span>{product.name} - {product.price.toLocaleString()} VND</span>
-                        </li>
+                        </Link>
                     ))}
                 </ul>
             )}

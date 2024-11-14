@@ -33,14 +33,14 @@
             background-color: #f7737375;
            }
         }
-        .booking-status-confirmed {
+        .booking-status-completed {
             background-color: green;
             padding: 10px;
             border-radius: 15px;
             width:max-content; 
         }
         
-        .booking-status-processing {
+        .booking-status-pending {
             background-color: orange; 
             padding: 10px;
             border-radius: 15px;
@@ -54,7 +54,7 @@
             width:max-content;
         }
         
-        .booking-status-completed {
+        .booking-status-shipping {
             background-color: blue; 
             padding: 10px;
             border-radius: 15px;

@@ -12,7 +12,7 @@ const AnalyticsCard = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3001/api/v1/user'); // Đường dẫn API bạn đang sử dụng
-                const data = response.data;
+                const data = response.data.users;
 
                 // Lấy tháng hiện tại và tháng trước
                 const currentMonth = new Date().getMonth();

@@ -16,7 +16,7 @@ export const fetchProducts = createAsyncThunk(
             throw new Error('Không thể lấy sản phẩm');
         }
         const data = await response.json();
-        return data;
+        return data.products || []; // Đảm bảo trả về mảng sản phẩm
     }
 );
 

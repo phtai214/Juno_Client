@@ -6,7 +6,7 @@ import "../../style/components/admin/sidebar.scss";
 
 import { icons } from '../../app/data/icon'; // Import các biểu tượng
 
-const HeadAdmin = () => {
+const HeadEmployee = () => {
     const location = useLocation(); // Lấy thông tin đường dẫn hiện tại
     const userRole = localStorage.getItem('userRole');
 
@@ -25,22 +25,22 @@ const HeadAdmin = () => {
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav ml-auto">
-                                {userRole === 'admin' && (
+                                {userRole === 'employee' && (
                                     <>
                                         <li className="nav-item">
-                                            <Link className={`nav-link ${location.pathname === '/employees/dashboard' ? 'active' : ''}`} to="/admin/dashboard"><span className="admin-icon">{icons.home}</span> Dashboard</Link>
+                                            <Link className={`nav-link ${location.pathname === '/employee/dashboard' ? 'active' : ''}`} to="/employee/dashboard"><span className="admin-icon">{icons.home}</span> Dashboard</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className={`nav-link ${location.pathname === '/employees/user' ? 'active' : ''}`} to="/admin/user"><span className="admin-icon">{icons.user}</span> Users</Link>
+                                            <Link className={`nav-link ${location.pathname === '/employee/user' ? 'active' : ''}`} to="/employee/user"><span className="admin-icon">{icons.user}</span> Users</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className={`nav-link ${location.pathname === '/employees/products' ? 'active' : ''}`} to="/admin/products"> <span className="admin-icon">{icons.product}</span> Product</Link>
+                                            <Link className={`nav-link ${location.pathname === '/employee/products' ? 'active' : ''}`} to="/employee/products"> <span className="admin-icon">{icons.product}</span> Product</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className={`nav-link ${location.pathname === '/employees/orders' ? 'active' : ''}`} to="/admin/orders"><span className="admin-icon">{icons.order}</span> Order</Link>
+                                            <Link className={`nav-link ${location.pathname === '/employee/orders' ? 'active' : ''}`} to="/employee/orders"><span className="admin-icon">{icons.order}</span> Order</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className={`nav-link ${location.pathname === '/employees/settings' ? 'active' : ''}`} to="/admin/settings"><span className="admin-icon">{icons.settings}</span> Setting</Link>
+                                            <Link className={`nav-link ${location.pathname === '/employee/shops' ? 'active' : ''}`} to="/employee/shops"><span className="admin-icon">{icons.shop}</span> Shop</Link>
                                         </li>
                                     </>
                                 )}
@@ -53,4 +53,4 @@ const HeadAdmin = () => {
     );
 };
 
-export default HeadAdmin;
+export default HeadEmployee;

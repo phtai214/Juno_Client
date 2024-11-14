@@ -7,7 +7,8 @@ const cartSlice = createSlice({
     },
     reducers: {
         setCartItems: (state, action) => {
-            state.items = action.payload;
+            state.items = Array.isArray(action.payload) ? action.payload : []; // Đảm bảo payload là mảng
+
             // Lưu giỏ hàng vào localStorage mỗi khi có thay đổi
             localStorage.setItem('cartItems', JSON.stringify(action.payload));
         },

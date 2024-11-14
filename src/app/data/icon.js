@@ -1,4 +1,4 @@
-import { FaHome, FaUser, FaShoppingCart, FaBox, FaCog, FaUsers, FaStar, FaMoneyBillWave, FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { FaHome, FaUser, FaShoppingCart, FaBox, FaCog, FaUsers, FaStar, FaMoneyBillWave, FaArrowUp, FaArrowDown, FaUserTie, FaStore } from 'react-icons/fa';
 
 // Xuất các biểu tượng
 export const icons = {
@@ -12,5 +12,7 @@ export const icons = {
     review: <FaStar />, // Biểu tượng cho review
     revenue: <FaMoneyBillWave />, // Biểu tượng cho doanh thu
     increase: <FaArrowUp />, // Biểu tượng cho tăng trưởng
-    decrease: <FaArrowDown />,
+    decrease: <FaArrowDown />, // Biểu tượng cho giảm
+    employee: <FaUserTie />, // Biểu tượng cho employee
+    shop: <FaStore />, // Biểu tượng cho shop
 };

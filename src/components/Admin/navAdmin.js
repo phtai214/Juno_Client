@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../style/components/admin/navHeader.scss";
-import SearchBar from "../common/SearchBar";
+import SearchBarAdmin from "./SearchBar";
 import { Dropdown } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { icons } from '../../app/data/icon';
@@ -34,7 +34,7 @@ const NavAdmin = () => {
                 {userRole === 'admin' && (
                     <>
                         <div className="search-box-container nav-item">
-                            <SearchBar />
+                            <SearchBarAdmin />
                         </div>
                         <div className="nav-item end-nav">
                             {isLoggedIn ? (

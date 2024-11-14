@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import BookingSelect from "../../components/common/booking"
 
-const OrderUpdate = () => {
+const OrderUpdateEmployee = () => {
     const [orderDetails, setOrderDetails] = useState(null);
     const [orderItems, setOrderItems] = useState([]);
     const [orderStatus, setOrderStatus] = useState('');
@@ -46,7 +46,8 @@ const OrderUpdate = () => {
 
         try {
             await axios.put(`http://localhost:3001/api/v1/order/${id}`, updatedData);
-            navigate("/admin/orders"); // Sử dụng navigate để chuyển hướng
+            alert("order update successfully!");
+            navigate("/employee/orders"); // Sử dụng navigate để chuyển hướng
         } catch (error) {
             console.error('Failed to update order:', error);
         }
@@ -95,4 +96,4 @@ const OrderUpdate = () => {
     );
 };
 
-export default OrderUpdate;
+export default OrderUpdateEmployee;

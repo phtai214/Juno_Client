@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import axios from 'axios'; // Import custom Axios instance
-import { loginSuccess, loginFailure } from '../../redux/slices/authSlice'; // Redux actions
-import { setUser } from '../../redux/slices/userSlice'; // Import action từ userSlice
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { loginSuccess, loginFailure } from '../../redux/slices/authSlice';
+import { setUser } from '../../redux/slices/userSlice';
+import { setPermissions } from '../../redux/slices/permissionsSlice'; // Import action từ permissionsSlice
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "../../style/components/common/login.scss";
@@ -12,6 +13,7 @@ const LoginComponent = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const userRedirect = useSelector(state => state.user.redirectTo);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -29,19 +31,27 @@ const LoginComponent = () => {
                 password: credentials.password,
             });
             const user = response.data.user;
-            const { id, name, role } = user;
-
+            const { id, name, role, permissions } = user; // Giả sử `permissions` cũng được trả về trong user
+            const permissionsArray = permissions
+                .replace(/^"(.*)"$/, '$1')  // Loại bỏ dấu ngoặc kép bao quanh chuỗi
+                .split(',');  // Tách chuỗi thành mảng dựa trên dấu phẩy
+            // Lưu thông tin người dùng và permissions vào localStorage
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('userId', id);
             localStorage.setItem('userRole', role);
-            localStorage.setItem('userName', name); // Lưu tên
-            localStorage.setItem('userEmail', credentials.email); // Lưu email
-            // Dispatch login success actions
-            dispatch(loginSuccess(response.data)); // Chuyển trạng thái login
-            dispatch(setUser(user)); // Đặt thông tin người dùng
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userEmail', credentials.email);
+            localStorage.setItem('permissions', JSON.stringify(permissions)); // Lưu permissions
 
-            // Redirect based on role
-            if (role === 'admin') {
+            // Dispatch actions để cập nhật Redux state
+            dispatch(loginSuccess(response.data));
+            dispatch(setUser(user));
+            dispatch(setPermissions(permissions));
+
+            // Redirect dựa trên role hoặc redirectTo
+            if (userRedirect) {
+                navigate(userRedirect);
+            } else if (role === 'admin') {
                 navigate('/admin/dashboard');
             } else if (role === 'user') {
                 navigate('/customer/home');
@@ -52,10 +62,9 @@ const LoginComponent = () => {
             console.error('Login Error:', error);
             console.log('Axios config:', error.config);
             setErrorMessage('Đăng nhập thất bại. Vui lòng kiểm tra thông tin và thử lại.');
-            dispatch(loginFailure(error.message)); // Dispatch action nếu đăng nhập thất bại
+            dispatch(loginFailure(error.message));
         }
     };
-
 
     return (
         <div className="login-container">

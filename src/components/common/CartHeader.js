@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const CartHeader = ({ setCart, isOpen }) => {
     const dispatch = useDispatch();
     const cartItems = useSelector(state => state.cart.items);
+    const localCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const userId = useSelector(state => state.user.id);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ const CartHeader = ({ setCart, isOpen }) => {
                     dispatch(setCartItems(items));
                 } else {
                     const localCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                    console.log("check localCartItems >>>", localCartItems)
                     dispatch(setCartItems(localCartItems));
                 }
             } catch (error) {
@@ -38,16 +40,16 @@ const CartHeader = ({ setCart, isOpen }) => {
 
         fetchCartData();
     }, [dispatch, userId]);
-    const totalAmount = Array.isArray(cartItems)
-        ? cartItems.reduce((acc, item) => {
-            // Kiểm tra sự tồn tại của product và lấy giá
-            const price = parseFloat(item.variation.product?.price) || 0;
-            // Kiểm tra quantity từ item
-            const quantity = item.quantity || 0; // Sử dụng item.quantity thay vì item.variation.quantity
-            return acc + price * quantity; // Tính tổng
+    const totalAmount = Array.isArray(userId ? cartItems : localCartItems)
+        ? (userId ? cartItems : localCartItems).reduce((acc, item) => {
+            const price = userId
+                ? parseFloat(item.variation?.product?.price) || 0
+                : parseFloat(item.price) || 0; // Sử dụng giá từ localCartItems
+
+            const quantity = item.quantity || 0;
+            return acc + price * quantity;
         }, 0)
         : 0;
-
     const handleCloseCart = () => {
         setCart(false);
         localStorage.setItem('cart', JSON.stringify(false));
@@ -66,30 +68,24 @@ const CartHeader = ({ setCart, isOpen }) => {
     };
 
     const handleRemoveItem = async (id, quantity) => {
-        // Kiểm tra nếu số lượng bằng 0 trước khi xóa
         if (quantity === 0) {
             const confirmDelete = window.confirm('Sản phẩm này có số lượng bằng 0. Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không?');
             if (!confirmDelete) return;
         }
 
         try {
-            // Xóa sản phẩm khỏi Redux
             dispatch(removeItem(id));
 
-            // Cập nhật localStorage
             const localCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-            const updatedCartItems = localCartItems.filter(item => item.id !== id); // Giữ lại những sản phẩm không phải id này
-
-            // Cập nhật lại localStorage
+            const updatedCartItems = localCartItems.filter(item => item.id !== id);
             localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
-            // Cập nhật số lượng giỏ hàng nếu cần
             const newCartCount = updatedCartItems.reduce((acc, item) => acc + item.quantity, 0);
             dispatch(updateCartCount(newCartCount));
-            // Xóa sản phẩm khỏi cơ sở dữ liệu
-            await axios.delete(`http://localhost:3001/api/v1/cartItem/cartItems/${id}`);
 
-
+            if (userId) {
+                await axios.delete(`http://localhost:3001/api/v1/cartItem/cartItems/${id}`);
+            }
         } catch (error) {
             console.error('Error removing item from cart:', error);
         }
@@ -112,44 +108,91 @@ const CartHeader = ({ setCart, isOpen }) => {
                 </div>
                 {loading ? (
                     <p>Đang tải sản phẩm...</p>
-                ) : cartItems.length === 0 ? (
+                ) : !Array.isArray(cartItems) || cartItems.length === 0 ? (
                     <p>Hiện chưa có sản phẩm</p>
                 ) : (
                     <>
                         <ul className="cart-box-data">
-                            {cartItems.map(item => (
-                                <li key={item.id} className="cart-item-data row">
-                                    <div className="cart-box-data-item col-md-3 col-sm-3">
-                                        <img
-                                            src={item.variation.imageUrl} // Update here to use imageUrl
-                                            alt={item.variation.product.name}
-                                            className="cart-item-image"
-                                        />
-                                    </div>
-                                    <div className="cart-box-data-item col-md-8 col-sm-8">
-                                        <p className="cart-box-data-item-product-name">{item.variation.product.name} - {parseFloat(item.variation.product.price).toLocaleString()} VND x</p>
-                                        <input
-                                            type="number"
-                                            value={item.quantity}
-                                            min="0"
-                                            onChange={(event) => handleQuantityChange(item.id, event)}
-                                            className="cart-box-data-item-quantity"
-                                        />
-                                        = {(parseFloat(item.variation.product.price) * item.quantity).toLocaleString()} VND
-                                        <button className="cart-item-btn-remove" onClick={() => handleRemoveItem(item.id, item.quantity)} style={{ marginLeft: '10px' }}>
-                                            Xóa
-                                        </button>
-                                        {/* Hiển thị màu đã chọn */}
-                                        {item.variation.color && ( // Assuming color is also in variation
-                                            <div style={{ marginTop: '5px', fontSize: '14px', color: '#555' }}>
-                                                Màu: <span style={{ fontWeight: 'bold', color: item.variation.color }}>{item.variation.color}</span>
-                                            </div>
-                                        )}
-                                    </div>
-                                </li>
-                            ))}
+                            {userId ? (
+                                cartItems.map(item => (
+                                    <li key={item.id} className="cart-item-data row">
+                                        <div className="cart-box-data-item col-md-3 col-sm-3">
+                                            <img
+                                                src={item?.variation?.imageUrl || 'default-image-url.jpg'}
+                                                alt={item?.variation?.product?.name || 'Product Name'}
+                                                className="cart-item-image"
+                                            />
+                                        </div>
+                                        <div className="cart-box-data-item col-md-8 col-sm-8">
+                                            <p className="cart-box-data-item-product-name">
+                                                {item?.variation?.product?.name || 'Product Name'} - {parseFloat(item?.variation?.product?.price || 0).toLocaleString()} VND x
+                                            </p>
+                                            <input
+                                                type="number"
+                                                value={item.quantity || 0}
+                                                min="0"
+                                                onChange={(event) => handleQuantityChange(item.id, event)}
+                                                className="cart-box-data-item-quantity"
+                                            />
+                                            = {(parseFloat(item?.variation?.product?.price || 0) * (item.quantity || 0)).toLocaleString()} VND
+                                            <button
+                                                className="cart-item-btn-remove"
+                                                onClick={() => handleRemoveItem(item.id, item.quantity)}
+                                                style={{ marginLeft: '10px' }}
+                                            >
+                                                Xóa
+                                            </button>
+                                            {item?.variation?.color && (
+                                                <div style={{ marginTop: '5px', fontSize: '14px', color: '#555' }}>
+                                                    Màu: <span style={{ fontWeight: 'bold', color: item.variation.color }}>{item.variation.color}</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </li>
+                                ))
+                            ) : (
+                                localCartItems.map(item => (
+                                    <li key={item.id} className="cart-item-data row">
+                                        <div className="cart-box-data-item col-md-3 col-sm-3">
+                                            <img
+                                                src={item.imgURL || 'default-image-url.jpg'}
+                                                alt={item.name || 'Product Name'}
+                                                className="cart-item-image"
+                                            />
+                                        </div>
+                                        <div className="cart-box-data-item col-md-8 col-sm-8">
+                                            <p className="cart-box-data-item-product-name">
+                                                {item.name || 'Product Name'} - {parseFloat(item.price || 0).toLocaleString()} VND x
+                                            </p>
+                                            <input
+                                                type="number"
+                                                value={item.quantity || 0}
+                                                min="0"
+                                                onChange={(event) => handleQuantityChange(item.id, event)}
+                                                className="cart-box-data-item-quantity"
+                                            />
+                                            = {(parseFloat(item.price || 0) * (item.quantity || 0)).toLocaleString()} VND
+                                            <button
+                                                className="cart-item-btn-remove"
+                                                onClick={() => handleRemoveItem(item.id, item.quantity)}
+                                                style={{ marginLeft: '10px' }}
+                                            >
+                                                Xóa
+                                            </button>
+                                            {item.color && (
+                                                <div style={{ marginTop: '5px', fontSize: '14px', color: '#555' }}>
+                                                    Màu: <span style={{ fontWeight: 'bold', color: item.color }}>{item.color}</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </li>
+                                ))
+                            )}
                         </ul>
-                        <p className="cart-item-box"><span className="cart-item-tt">Tổng tiền tạm tính:</span> <span className="cart-item-price">{totalAmount.toLocaleString()} VND</span></p>
+                        <p className="cart-item-box">
+                            <span className="cart-item-tt">Tổng tiền tạm tính:</span>
+                            <span className="cart-item-price">{totalAmount.toLocaleString()} VND</span>
+                        </p>
                     </>
                 )}
                 <button className="view-cart-detail" onClick={handleCartClick}>Xem Giỏ Hàng</button>

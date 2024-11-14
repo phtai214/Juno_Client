@@ -3,7 +3,7 @@ import axios from 'axios';
 import { icons } from "../../app/data/icon";
 import "../../style/components/admin/AnalyticsCard.scss";
 import AnalyticsWidgetSummary from "./AnalyticsWidgetSummary"
-const AnalyticsCard = () => {
+const AnalyticsCardEmployee = () => {
     const [totalUsers, setTotalUsers] = useState(0);
     const [percentIncrease, setPercentIncrease] = useState(0);
     const [userData, setUserData] = useState([]);
@@ -12,7 +12,7 @@ const AnalyticsCard = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3001/api/v1/user'); // Đường dẫn API bạn đang sử dụng
-                const data = response.data;
+                const data = response.data.users;
 
                 // Lấy tháng hiện tại và tháng trước
                 const currentMonth = new Date().getMonth();
@@ -100,4 +100,4 @@ const AnalyticsCard = () => {
     );
 };
 
-export default AnalyticsCard;
+export default AnalyticsCardEmployee;

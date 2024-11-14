@@ -72,35 +72,52 @@
                     font-weight: 500;
                 }
                 .btn-product-color {
-                    margin: 20px auto 5px;
-                    display: none;
+                    margin: 10px auto;
+                    display: flex;
                     justify-content: center;
-        
+                    
                     .btn-color1 {
-                        border: none;
-                        background-color: black;
-                        border-radius: 50%;
-                        width: 20px;
-                        height: 20px;
-                        margin: 5px;
+                      border: none;
+                      background-color: #000; // Đen
+                      border-radius: 50%;
+                      width: 30px;
+                      height: 30px;
+                      margin: 5px;
                     }
+                    
                     .btn-color2 {
-                        border: none;
-                        background-color: rgb(252, 202, 169);
-                        border-radius: 50%;
-                        width: 20px;
-                        height: 20px;
-                        margin: 5px;
+                      border: none;
+                      background-color: rgb(252, 202, 169); // Màu cam nhạt
+                      border-radius: 50%;
+                      width: 30px;
+                      height: 30px;
+                      margin: 5px;
                     }
+                    
                     .btn-color3 {
-                        border: none;
-                        background-color: rgb(122, 56, 26);
-                        border-radius: 50%;
-                        width: 20px;
-                        height: 20px;
-                        margin: 5px;
+                      border: none;
+                      background-color: rgb(122, 56, 26); // Màu nâu
+                      border-radius: 50%;
+                      width: 30px;
+                      height: 30px;
+                      margin: 5px;
                     }
-                }
+                  }
+                  
+                  .name-product {
+                    text-align: center;
+                    padding: 0;
+                    margin: 0;
+                    color: rgb(99, 99, 99); // Màu xám cho tên sản phẩm
+                  }
+                  
+                  .price-product {
+                    text-align: center;
+                    padding: 0;
+                    margin: 0;
+                    color: #000; // Màu đen cho giá
+                    font-weight: 500;
+                  }
                 .btn-pay-now{
                     border: none;
                     width: 80%;
@@ -125,6 +142,26 @@
             }
         }
 
+       }
+       .home-instagram{
+        .home-instagram-title{
+            margin: 20px;
+            text-align: center;
+        }
+        .instagram-container.row{
+            margin:0 auto;
+            padding:0;
+            width: 90%;
+            .col-md-3.col-sm-3.instagram-item{
+                .instagram-item-image{
+                    width:100%;
+                    height:auto;
+                    object-fit: cover;
+                    padding:10px
+                }
+               
+            }
+        }
        }
     }
   }

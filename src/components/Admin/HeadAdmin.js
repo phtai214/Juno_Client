@@ -40,10 +40,10 @@ const HeadAdmin = () => {
                                             <Link className={`nav-link ${location.pathname === '/admin/orders' ? 'active' : ''}`} to="/admin/orders"><span className="admin-icon">{icons.order}</span> Order</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className={`nav-link ${location.pathname === '/admin/employees' ? 'active' : ''}`} to="/admin/employees"><span className="admin-icon">{icons.employees}</span> Employees</Link>
+                                            <Link className={`nav-link ${location.pathname === '/admin/employees' ? 'active' : ''}`} to="/admin/employees"><span className="admin-icon">{icons.employee}</span> Employees</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className={`nav-link ${location.pathname === '/admin/settings' ? 'active' : ''}`} to="/admin/settings"><span className="admin-icon">{icons.settings}</span> Setting</Link>
+                                            <Link className={`nav-link ${location.pathname === '/admin/shops' ? 'active' : ''}`} to="/admin/shops"><span className="admin-icon">{icons.shop}</span> Shop</Link>
                                         </li>
                                     </>
                                 )}

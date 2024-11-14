@@ -1,82 +1,283 @@
-.order-container{
-    .orderTitle{
-        color: var(--text);
-        margin: 10px 0;
-        
+// Main Order page styles
+.order-container {
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+
+  .orderTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .btn-create {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0056b3;
     }
-    .btn-create{
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  }
+
+  .borderFilterMobile {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .lb-filter {
+      font-size: 16px;
+      color: #333;
+    }
+
+    .custom-dropdown {
+      position: relative;
+      width: 200px;
+
+      .custom-dropdown__select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+        cursor: pointer;
+
+        &:focus {
+          border-color: #007bff;
+          outline: none;
+        }
+      }
+
+      &::after {
+        content: '▼';
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+    }
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    th, td {
+      padding: 12px;
+      font-size: 14px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f8f8f8;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .order-item {
+      .order-item-address {
+        max-height: 50px; // Giới hạn chiều cao nếu cần
+        overflow: hidden;
+        text-overflow: ellipsis; // Hiển thị "..." khi bị cắt
+        white-space: nowrap; // Không cho xuống dòng
+      }
+      .delete, .update {
+        padding: 6px 12px;
         border: none;
-        padding: 5px;
-        border-radius: 25px;
-        background-color: rgb(64, 104, 236);
-        color:aliceblue;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        transition: background-color 0.3s ease;
+
+        &.delete {
+          background-color: #f44336;
+          color: white;
+
+          &:hover {
+            background-color: #d32f2f;
+          }
+        }
+
+        &.update {
+          background-color: #007bff;
+          color: white;
+
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+      }
     }
-    .table{
-        width:100%;
-        .order-item{
-            td{
-                padding: 10px;
-                border-radius: 5px;
-                .delete{
-                    padding: 5px;
-                    border: none;
-                    margin: 4px;
-                    border-radius: 15px;
-                    background-color: rgb(212, 105, 72);
-                    cursor: pointer;
-                }
-                .update{
-                    padding: 5px;
-                    border: none;
-                    margin: 4px;
-                    border-radius: 15px;
-                    background-color: rgb(241, 229, 49);
-                    cursor: pointer;
-                }
-            }
-            .booking-status-confirmed {
-                background-color: green; 
-                padding: 5px;
-                border-radius: 15px;
-            }
-            
-            .booking-status-processing {
-                background-color: orange; 
-                padding: 5px;
-                border-radius: 15px;
-            }
-            
-            .booking-status-cancelled {
-                background-color: red;
-                padding: 5px;
-                border-radius: 15px;
-            }
-            
-            .booking-status-completed {
-                background-color: blue; 
-                padding: 5px;
-                border-radius: 15px;
-            }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+
+    .page-item {
+      margin: 0 5px;
+
+      .page-link {
+        padding: 8px 16px;
+        background-color: #fff;
+        color: #007bff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        text-decoration: none;
+
+        &:hover {
+          background-color: #007bff;
+          color: white;
         }
-        .order-item:hover{
-            background-color: #2e374a;
+
+        &.active {
+          background-color: #007bff;
+          color: white;
+          border-color: #007bff;
         }
-        
-       
+      }
     }
-    .pagination{
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        li{
-            margin: 0 5px;
-            background-color: var(--bg);
-        }
-        .pagi-btn{
-            padding: 3px 5px;
-            border-radius: 5px;
-            border: none;
-            background-color: rgb(185, 185, 185)
-        }
+
+    .page-item.disabled .page-link {
+      color: #ddd;
+      cursor: not-allowed;
     }
+  }
+
+  // Order status styling
+  .booking-status-completed,
+  .booking-status-pending,
+  .booking-status-cancelled,
+  .booking-status-shipping {
+    padding: 10px 15px; // Thay đổi padding
+    border-radius: 25px; // Tăng độ cong
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease; // Thêm hiệu ứng chuyển động
+
+    &.booking-status-completed {
+      background-color: #28a745;
+      &:hover {
+        background-color: #218838;
+        transform: scale(1.05); // Tăng kích thước khi hover
+      }
+    }
+
+    &.booking-status-pending {
+      background-color: #fd7e14;
+      &:hover {
+        background-color: #e57d1f;
+        transform: scale(1.05);
+      }
+    }
+
+    &.booking-status-cancelled {
+      background-color: #dc3545;
+      &:hover {
+        background-color: #c82333;
+        transform: scale(1.05);
+      }
+    }
+
+    &.booking-status-shipping {
+      background-color: #007bff;
+      &:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+      }
+    }
+  }
+  .delete, .update {
+    padding: 8px 16px; // Tăng kích thước padding
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 14px; // Thay đổi kích thước font
+    transition: background-color 0.3s ease, transform 0.2s ease; // Thêm hiệu ứng chuyển động
+
+    &.delete {
+      background-color: #f44336;
+      color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Thêm bóng cho nút
+      &:hover {
+        background-color: #d32f2f;
+        transform: scale(1.05); // Tăng kích thước khi hover
+      }
+    }
+
+    &.update {
+      background-color: #007bff;
+      color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Thêm bóng cho nút
+      &:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+}
+
+// Mobile responsiveness
+@media (max-width: 768px) {
+  .order-container {
+    .orderTitle {
+      font-size: 20px;
+    }
+
+    .btn-create, .search-input {
+      width: 100%;
+      font-size: 14px;
+    }
+
+    .borderFilterMobile {
+      flex-direction: column;
+
+      .lb-filter, .custom-dropdown__select {
+        width: 100%;
+      }
+    }
+
+    .table th, .table td {
+      font-size: 14px;
+    }
+
+    .pagination .page-link {
+      padding: 6px 12px;
+    }
+  }
 }

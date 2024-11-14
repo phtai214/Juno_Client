@@ -1,0 +1,165 @@
+// Contact.scss
+
+.layout-pageContact {
+    padding: 2rem;
+    background-color: #f7f7f7;
+}
+
+.container-fluid {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+
+        .box-heading-contact,
+        .wrapbox-content-page-contact {
+            padding: 1.5rem;
+        }
+
+        .box-heading-contact {
+            .box-map {
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+                iframe {
+                    width: 100%;
+                    height: 100%;
+                    min-height: 500px;
+                    border: none;
+                }
+            }
+        }
+
+        .wrapbox-content-page-contact {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+
+            .header-page-contact {
+                text-align: center;
+                h1 {
+                    font-size: 2rem;
+                    color: #d23f57;
+                    margin-bottom: 1rem;
+                }
+            }
+
+            .box-info-contact {
+                margin-top: 1.5rem;
+
+                .list-info {
+                    list-style: none;
+                    padding: 0;
+
+                    li {
+                        margin-bottom: 1rem;
+                        color: #333;
+
+                        p {
+                            margin: 0.25rem 0;
+                        }
+
+                        strong {
+                            color: #555;
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+
+            .box-send-contact {
+                margin-top: 2rem;
+
+                h2 {
+                    font-size: 1.5rem;
+                    color: #333;
+                    margin-bottom: 1.5rem;
+                }
+
+                .contact-form {
+                    .input-group {
+                        margin-bottom: 1rem;
+
+                        input,
+                        textarea {
+                            width: 100%;
+                            padding: 0.75rem;
+                            border: 1px solid #ddd;
+                            border-radius: 4px;
+                            font-size: 1rem;
+                            color: #555;
+                            transition: border-color 0.3s ease;
+
+                            &:focus {
+                                border-color: #d23f57;
+                                outline: none;
+                            }
+
+                            &::placeholder {
+                                color: #999;
+                            }
+                        }
+
+                        textarea {
+                            min-height: 150px;
+                            resize: vertical;
+                        }
+                    }
+
+                    .button {
+                        width: 100%;
+                        padding: 0.75rem;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        background-color: #d23f57;
+                        color: #fff;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+
+                        &:hover {
+                            background-color: #b03649;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive styling
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 1rem;
+
+        .wrapbox-content-page-contact,
+        .box-heading-contact {
+            padding: 1rem;
+        }
+
+        .header-page-contact h1 {
+            font-size: 1.75rem;
+        }
+
+        .box-send-contact h2 {
+            font-size: 1.25rem;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .layout-pageContact {
+        padding: 1rem;
+    }
+
+    .wrapbox-content-page-contact {
+        padding: 0.75rem;
+    }
+
+    .header-page-contact h1,
+    .box-send-contact h2 {
+        font-size: 1.5rem;
+    }
+}

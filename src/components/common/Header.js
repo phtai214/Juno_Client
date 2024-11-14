@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../style/components/common/Header.scss";
 import SearchBar from "./SearchBar";
+import { logout } from '../../redux/slices/authSlice'; // Action logout
+import { clearUser } from '../../redux/slices/userSlice';
 import { Dropdown } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CartHeader from "./CartHeader";
-import { useDispatch } from 'react-redux';
 import { addItem, updateCartCount } from '../../redux/slices/cartSlice';
 const Header = () => {
     const dispatch = useDispatch();
@@ -18,14 +19,16 @@ const Header = () => {
     const userId = localStorage.getItem('userId');
     useEffect(() => {
         const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        savedCartItems.forEach(item => {
-            dispatch(addItem(item));
-        });
-        dispatch(updateCartCount(savedCartItems.length)); // Cập nhật số lượng giỏ hàng
+        if (Array.isArray(savedCartItems)) {
+            savedCartItems.forEach(item => {
+                dispatch(addItem(item));
+            });
+            dispatch(updateCartCount(savedCartItems.length)); // Cập nhật số lượng giỏ hàng
+        }
     }, [dispatch]);
 
     const cartCount = useSelector((state) => state.cart.count);
-
+    console.log("check cartCount", cartCount);
     const toggleCart = () => {
 
         setCart(true);
@@ -33,7 +36,18 @@ const Header = () => {
 
     const handleLogout = () => {
         console.log('Đăng xuất');
+        // Xóa dữ liệu đăng nhập khỏi localStorage
         localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('cartInitialized');
+        // Dispatch logout action để cập nhật Redux state
+        dispatch(logout());
+        dispatch(clearUser());
+
+        // Điều hướng người dùng tới trang mong muốn sau khi đăng xuất
         navigate('/customer/sale-thuong-thuong');
     };
 
@@ -43,6 +57,9 @@ const Header = () => {
 
     const handleClick = () => {
         navigate('/login');
+    };
+    const handleNavigate = (path) => {
+        navigate(path);
     };
 
     return (
@@ -73,22 +90,22 @@ const Header = () => {
                                             <div className="container">
                                                 <div className="row">
                                                     <div className="col-md-6 col-sm-6 sub-menu-data">
-                                                        <Link className="nav-menu-link" to="/customer/product/PHU-KIEN">Túi</Link>
+                                                        <Link className="nav-menu-link" to="/customer/product">Túi</Link>
                                                         <ul>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/PHU-KIEN/xang-dan">Túi cỡ nhỏ</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/PHU-KIEN/cao-got">Túi cỡ trung </Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/PHU-KIEN/sneaker">Túi cỡ lớn</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/PHU-KIEN/bup-be">Balo</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/PHU-KIEN/dep-guoc">ví - Clutch</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/small-bag">Túi cỡ nhỏ</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/medium-bag">Túi cỡ trung </Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/large-bag">Túi cỡ lớn</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/backpack">Balo</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/Clutch">Ví - Clutch</Link></li>
                                                         </ul>
                                                     </div>
                                                     <div className="col-md-6 col-sm-6 sub-menu-data">
                                                         <Link className="nav-menu-link" to="/customer/product/BST">Bộ Sưu Tập</Link>
                                                         <ul>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/BST/xang-dan">Moda Feminia</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/BST/cao-got">Golden Hour</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/BST/sneaker">Autumn Knit</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/BST/bup-be">Back To Cool</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/tag/moda-feminia">Moda Feminia</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/tag/golden-hour">Golden Hour</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/tag/autumn-knit">Autumn Knit</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/tag/back-to-cool">Back To Cool</Link></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -99,7 +116,7 @@ const Header = () => {
                                         <Link className="nav-link hightlight" to="/customer/sale-thuong-thuong">SALE Thương Thương</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/login">SHOWROOM</Link>
+                                        <Link className="nav-link" to="/customer/showroom">SHOWROOM</Link>
                                     </li>
                                 </ul>
                                 <ul className="navbar-nav ml-auto">
@@ -124,7 +141,7 @@ const Header = () => {
                                         )}
                                         <div className="nav-link" onClick={toggleCart}>
                                             <img className="user-icon" src="https://res.cloudinary.com/dhjrrk4pg/image/upload/v1729715844/trolley_3743596_qrqu7i.png" />
-                                            {cartCount > 0 && <span className="cart-count">{cartCount}</span>} {/* Hiển thị số lượng giỏ hàng */}
+                                            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
                                         </div>
                                     </li>
                                 </ul>

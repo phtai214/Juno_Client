@@ -8,13 +8,13 @@
 
     .product-slider-item {
         height: max-content;
-        width: fit-content;
+        width: 200px;
         
         .product-slider-image-box {
             .product-slider-image {
                 position: relative;
-                width: 100%;
-                height: auto;
+                width: 200px;
+                height: 350px;
                 object-fit: cover;
             }
             .product-slider-highlight {
@@ -42,7 +42,7 @@
             margin: 0;
         }
         
-        .product-slider-price {
+        .price-product {
             text-align: center;
             color: rgb(223, 28, 28);
         }
@@ -91,16 +91,9 @@
             font-weight: 500;
         }
 
-        &:hover {
-            border:1px solid rgba(122, 122, 122, 0.336);
-            .btn-pay-flash-sale {
-                display: block;
-            }
-            .btn-product-color {
-                display: flex;
-            }
-        }
+       
     }
+    
 
     .swiper-pagination {
         display: none; // Ẩn dot pagination

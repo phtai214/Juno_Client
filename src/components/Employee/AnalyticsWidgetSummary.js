@@ -6,7 +6,7 @@ import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip } from 'chart.js';
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip);
 
-export default function AnalyticsWidgetSummary({ chart, color = 'primary', sx, ...other }) {
+export default function AnalyticsWidgetSummaryEmployee({ chart, color = 'primary', sx, ...other }) {
     const theme = useTheme();
 
     const chartOptions = {

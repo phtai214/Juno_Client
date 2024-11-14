@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import BookingSelect from "../../components/common/booking";
-
+import "../../style/pages/admin/UpdateOrder.scss"
 const OrderUpdate = () => {
     const [orderDetails, setOrderDetails] = useState(null);
     const [orderItems, setOrderItems] = useState([]);
@@ -56,6 +56,7 @@ const OrderUpdate = () => {
 
         try {
             await axios.put(`http://localhost:3001/api/v1/order/${id}`, updatedData);
+            alert("update Order thành công");
             navigate("/admin/orders"); // Sử dụng navigate để chuyển hướng
         } catch (error) {
             console.error('Failed to update order:', error);
@@ -71,7 +72,7 @@ const OrderUpdate = () => {
                     <p><strong>Số điện thoại:</strong>
                         <input
                             type="number"
-                            value={orderDetails.user.phonenumber}
+                            value={orderDetails.phone_number}
                             onChange={(e) => setTotalAmount(e.target.value)}
                         />
                     </p>

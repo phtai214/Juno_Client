@@ -4,7 +4,7 @@ import { icons } from "../../app/data/icon";
 import "../../style/components/admin/ReviewAnalyticsCard.scss";
 import AnalyticsWidgetSummary from "./AnalyticsWidgetSummary";
 
-const ReviewAnalyticsCard = () => {
+const ReviewAnalyticsCardEmployee = () => {
     const [totalReviews, setTotalReviews] = useState(0);
     const [percentIncrease, setPercentIncrease] = useState(0);
     const [reviewData, setReviewData] = useState([]);
@@ -21,12 +21,12 @@ const ReviewAnalyticsCard = () => {
 
                 // Tính tổng đánh giá trong tháng hiện tại và tháng trước
                 const reviewsInCurrentMonth = data.filter(review => {
-                    const startDay = new Date(review.createdAt);
+                    const startDay = new Date(review.created_at);
                     return startDay.getMonth() === currentMonth; // Lọc theo tháng hiện tại
                 });
 
                 const reviewsInPreviousMonth = data.filter(review => {
-                    const startDay = new Date(review.createdAt);
+                    const startDay = new Date(review.created_at);
                     return startDay.getMonth() === previousMonth; // Lọc theo tháng trước
                 });
 
@@ -102,4 +102,4 @@ const ReviewAnalyticsCard = () => {
     );
 };
 
-export default ReviewAnalyticsCard;
+export default ReviewAnalyticsCardEmployee;

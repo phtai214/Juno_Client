@@ -4,15 +4,18 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 
-function Transactions() {
+function TransactionsEmployee() {
     const [data, setData] = useState([]);
 
-
+    const formatPrice = (price) => {
+        const amount = parseFloat(price);
+        return amount.toLocaleString('en-US', { style: 'currency', currency: 'VND' }).replace('₫', '').trim() + ' VND';
+    };
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3001/api/v1/order`);
-                const sortedData = response.data.sort((a, b) => {
+                const sortedData = response.data.orders.sort((a, b) => {
                     // Sort tours based on their id in descending order (newest first)
                     return b.id - a.id;
                 });
@@ -43,16 +46,16 @@ function Transactions() {
                             <td>
                                 <div className="tran-user">
                                     <img className="userImg" src="https://res.cloudinary.com/dhjrrk4pg/image/upload/v1715060332/user_1177568_mxilzq.png" alt="" width={40} height={40} />
-                                    {booking.name}
+                                    {booking.user.name}
                                 </div>
                             </td>
                             <td>
-                                <div className={`booking-status-${booking.booking_status ? booking.booking_status.toLowerCase() : ''}`}>
-                                    {booking.booking_status}
+                                <div className={`booking-status-${booking.status ? booking.status.toLowerCase() : ''}`}>
+                                    {booking.status}
                                 </div>
                             </td>
                             <td>{moment(booking.start_day).format('YYYY-MM-DD')}</td>
-                            <td><em>${booking.total_amount}</em></td>
+                            <td><em>{formatPrice(booking.total_amount)}</em></td>
                         </tr>
                     ))}
                 </tbody>
@@ -60,4 +63,4 @@ function Transactions() {
         </div>
     );
 }
-export default Transactions
+export default TransactionsEmployee

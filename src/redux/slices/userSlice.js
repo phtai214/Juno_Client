@@ -7,6 +7,7 @@ const initialState = {
     email: localStorage.getItem('userEmail') || '',
     avatar: localStorage.getItem('userAvatar') || '',
     role: localStorage.getItem('userRole') || false,
+    redirectTo: null, // Thêm biến trạng thái để lưu trữ URL chuyển hướng
 };
 
 // Tạo slice cho user
@@ -21,6 +22,7 @@ const userSlice = createSlice({
             state.email = action.payload.email;
             state.avatar = action.payload.avatar;
             state.role = action.payload.role;
+            state.redirectTo = action.payload.redirectTo || null; // Thiết lập redirectTo
 
             // Lưu thông tin vào localStorage
             localStorage.setItem('userId', action.payload.id);
@@ -36,6 +38,7 @@ const userSlice = createSlice({
             state.email = '';
             state.avatar = '';
             state.role = false;
+            state.redirectTo = null; // Xóa redirectTo
 
             // Xóa dữ liệu khỏi localStorage
             localStorage.removeItem('userId');

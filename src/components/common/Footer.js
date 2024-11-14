@@ -38,27 +38,26 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="footer-dropdown">
-                    <ul class="two-column-list">
-                        <li class="column">
+                    <ul className="two-column-list">
+                        <li className="column">
 
                             <h4 className="column-p-item" onClick={handleFooterClick}>Hỗ Trợ Khách Hàng <img className="drop-down-image" src="https://res.cloudinary.com/dhjrrk4pg/image/upload/v1729627546/chevron-down_15734824_kinsmu.png" /> </h4>
                             {footer && (
                                 <ul className="column-ul-item">
-                                    <li className="column-li-item">Liên hệ hỗ trợ</li>
-                                    <li className="column-li-item">Câu hỏi thường gặp</li>
-                                    <li className="column-li-item">Chính sách đổi trả</li>
-                                    <li className="column-li-item">Gửi yêu cầu hỗ trợ</li>
+                                    <li className="column-li-item"><Link to="/customer/chinh-sach-doi-tra">Chính sách đổi trả</Link></li>
+                                    <li className="column-li-item" > <Link to="/customer/thanh-toan-giao-nhan">Thanh toán giao nhận</Link></li>
+                                    <li className="column-li-item" > <Link to="/customer/chinh-sach-bao-mat">Chính sách bảo mật</Link></li>
+                                    <li className="column-li-item" ><Link to="/customer/cau-hoi-thuong-gap">Câu hỏi thường gặp</Link></li>
                                 </ul>
                             )}
                         </li>
-                        <li class="column">
+                        <li className="column">
                             <h4 className="column-p-item" onClick={handleFooterClick}>Về JUNO <img className="drop-down-image" src="https://res.cloudinary.com/dhjrrk4pg/image/upload/v1729627546/chevron-down_15734824_kinsmu.png" /> </h4>
                             {footer && (
                                 <ul className="column-ul-item">
-                                    <li className="column-li-item">Giới thiệu về chúng tôi</li>
-                                    <li className="column-li-item">Chương trình thành viên</li>
-                                    <li className="column-li-item">Thông tin liên hệ</li>
-                                    <li className="column-li-item">Tin tức và sự kiện</li>
+                                    <li className="column-li-item"> <Link to="/customer/gioi-thieu">Giới thiệu</Link></li>
+                                    <li className="column-li-item"><Link to="/customer/lien-he">Liên Hệ</Link></li>
+                                    <li className="column-li-item"><Link to="/customer/tin-tuc">Tin tức</Link></li>
                                 </ul>
                             )}
                         </li>

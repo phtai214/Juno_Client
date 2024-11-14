@@ -3,72 +3,16 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-
-const data = [
-    {
-        name: '1/2024',
-        uv: 4000,
-        pv: 2400,
-        amt: 2400,
-    },
-    {
-        name: '2/2024',
-        uv: 3000,
-        pv: 1398,
-        amt: 2210,
-    },
-    {
-        name: '3/2024',
-        uv: 2000,
-        pv: 9800,
-        amt: 2290,
-    },
-    {
-        name: '4/2024',
-        uv: 2780,
-        pv: 3908,
-        amt: 2000,
-    },
-    {
-        name: '5/2024',
-        uv: 1890,
-        pv: 4800,
-        amt: 2181,
-    },
-    {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-    },
-    {
-        name: '6/2024',
-        uv: 3490,
-        pv: 4300,
-        amt: 2100,
-    },
-];
-
 export default function Chart() {
     const [filteredData, setFilteredData] = useState([]);
-    const [data, setData] = useState([]);
     const [filterDuration, setFilterDuration] = useState('6m');
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const response = await axios.get(`http://localhost:3001/api/v1/order`);
-                const formattedData = response.data.map((item) => {
-                    const createDate = new Date(item.createdAt);
-                    const monthYear = createDate.toLocaleString('en-US', { month: 'short', year: 'numeric' });
-                    return {
-                        month: monthYear,
-                        revenue: item.total_amount,
-                        order: response.data.length
-                    };
-                });
-                setData(formattedData);
-                setFilteredData(getFilteredData(formattedData, filterDuration));
+                const groupedData = groupDataByDate(response.data.orders);
+                setFilteredData(getFilteredData(groupedData, filterDuration));
             } catch (error) {
                 console.error('Error fetching chart data:', error);
             }
@@ -76,18 +20,40 @@ export default function Chart() {
         fetchData();
     }, [filterDuration]);
 
+    const formatPrice = (price) => {
+        const amount = parseFloat(price);
+        return `${amount.toLocaleString('vi-VN')} VND`; // Chỉ định dạng mà không nhân với 1000
+    };
+
+    function groupDataByDate(data) {
+        const groupedData = {};
+
+        data.forEach(item => {
+            const createDate = new Date(item.created_at);
+            const dateStr = createDate.toISOString().split('T')[0];
+
+            if (!groupedData[dateStr]) {
+                groupedData[dateStr] = { date: dateStr, revenue: 0, order: 0 };
+            }
+            groupedData[dateStr].revenue += parseFloat(item.total_amount); // Tính doanh thu
+            groupedData[dateStr].order += 1; // Tăng số lượng đơn hàng
+        });
+
+        return Object.values(groupedData);
+    }
+
     function getFilteredData(data, duration) {
         const today = new Date();
         const durationMap = {
-            '3m': 3 * 30, // 3 months
-            '6m': 6 * 30, // 6 months
-            '1y': 12 * 30, // 1 year
+            '3m': 3 * 30,
+            '6m': 6 * 30,
+            '1y': 12 * 30,
         };
         const days = durationMap[duration] || durationMap['3m'];
         const startDate = new Date(today.getTime() - days * 24 * 60 * 60 * 1000);
 
-        return data.filter((item) => {
-            return new Date(item.createdAt) >= startDate && new Date(item.createdAt) <= today;
+        return data.filter(item => {
+            return new Date(item.date) >= startDate && new Date(item.date) <= today;
         });
     }
 
@@ -107,9 +73,9 @@ export default function Chart() {
                     }}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
+                    <XAxis dataKey="date" />
                     <YAxis />
-                    <Tooltip />
+                    <Tooltip formatter={(value) => formatPrice(value)} />
                     <Legend />
                     <Line type="monotone" dataKey="revenue" stroke="#8884d8" activeDot={{ r: 8 }} />
                     <Line type="monotone" dataKey="order" stroke="#82ca9d" />

@@ -1,0 +1,91 @@
+/* Định dạng chung cho container */
+.privacy-policy-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #fff;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.privacy-policy-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 20px 0 10px;
+  color: #34495e;
+}
+
+.section-content {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #555;
+  line-height: 1.8;
+}
+
+.link, .email-link {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #1abc9c;
+    text-decoration: underline;
+  }
+}
+
+.info-list {
+  list-style-type: none;
+  padding-left: 0;
+
+  .info-list-item {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    position: relative;
+
+    &::before {
+      content: '•';
+      color: #3498db;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+/* Thiết kế cho các đoạn văn bản có sự phân cách rõ ràng */
+.section-content strong.company-name {
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Tối ưu cho thiết bị di động */
+@media screen and (max-width: 768px) {
+  .privacy-policy-container {
+    padding: 20px;
+  }
+
+  .privacy-policy-title {
+    font-size: 28px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .section-content {
+    font-size: 14px;
+  }
+}

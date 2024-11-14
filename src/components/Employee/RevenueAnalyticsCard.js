@@ -4,16 +4,19 @@ import { icons } from "../../app/data/icon";
 import "../../style/components/admin/RevenueAnalyticsCard.scss";
 import AnalyticsWidgetSummary from "./AnalyticsWidgetSummary";
 
-const RevenueAnalyticsCard = () => {
+const RevenueAnalyticsCardEmployee = () => {
     const [totalRevenue, setTotalRevenue] = useState(0);
     const [percentIncrease, setPercentIncrease] = useState(0);
     const [revenueData, setRevenueData] = useState([]);
-
+    const formatPrice = (price) => {
+        const amount = parseFloat(price);
+        return amount.toLocaleString('en-US', { style: 'currency', currency: 'VND' }).replace('₫', '').trim() + ' VND';
+    };
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3001/api/v1/order'); // Gọi API đơn hàng
-                const data = response.data;
+                const data = response.data.orders; // Lấy dữ liệu từ response.data
 
                 // Lấy tháng hiện tại và tháng trước
                 const currentMonth = new Date().getMonth();
@@ -21,17 +24,17 @@ const RevenueAnalyticsCard = () => {
 
                 // Tính tổng doanh thu trong tháng hiện tại và tháng trước
                 const revenueInCurrentMonth = data.filter(order => {
-                    const startDay = new Date(order.createdAt);
+                    const startDay = new Date(order.created_at);
                     return startDay.getMonth() === currentMonth; // Lọc theo tháng hiện tại
                 });
 
                 const revenueInPreviousMonth = data.filter(order => {
-                    const startDay = new Date(order.createdAt);
+                    const startDay = new Date(order.created_at);
                     return startDay.getMonth() === previousMonth; // Lọc theo tháng trước
                 });
 
-                const totalRevenueInCurrentMonth = revenueInCurrentMonth.reduce((total, order) => total + order.total_amount, 0);
-                const totalRevenueInPreviousMonth = revenueInPreviousMonth.reduce((total, order) => total + order.total_amount, 0);
+                const totalRevenueInCurrentMonth = revenueInCurrentMonth.reduce((total, order) => total + parseFloat(order.total_amount), 0);
+                const totalRevenueInPreviousMonth = revenueInPreviousMonth.reduce((total, order) => total + parseFloat(order.total_amount), 0);
 
                 // Tính phần trăm tăng trưởng
                 let percentIncrease = 0;
@@ -61,7 +64,7 @@ const RevenueAnalyticsCard = () => {
         <div className="grid-cart-revenue-container" container spacing={3}>
             <div className="grid-cart-revenue-box" style={{ marginBottom: '20px' }}>
                 <div className="cart-box-data-revenue">
-                    <span className="grid-cart-box-icon-revenue">{icons.money}</span> {/* Biểu tượng cho doanh thu */}
+                    <span className="grid-cart-box-icon-revenue">{icons.money}</span>
                     <div className="box-item-data-revenue">
                         <span className={percentIncrease >= 0 ? "positive" : "negative"}>
                             {isFinite(percentIncrease) ? (
@@ -83,17 +86,17 @@ const RevenueAnalyticsCard = () => {
                 </div>
 
                 <p className="grid-cart-box-title-revenue">Total Revenue</p>
-                <h3>${totalRevenue.toFixed(2)}</h3> {/* Hiển thị tổng doanh thu */}
+                <h3>{formatPrice(totalRevenue.toFixed(2))}</h3> {/* Hiển thị tổng doanh thu */}
                 <div className="grid-cart-box-analytic-revenue">
                     <AnalyticsWidgetSummary
                         title="Weekly Revenue"
-                        percent={2.6} // Bạn có thể tính giá trị này tương tự
-                        total={714000} // Thay đổi giá trị tổng số nếu cần
+                        percent={2.6}
+                        total={714000}
                         color="brownGold"
-                        icon={<img alt="icon" src="/assets/icons/revenue/ic-revenue.svg" />} // Thay đổi biểu tượng
+                        icon={<img alt="icon" src="/assets/icons/revenue/ic-revenue.svg" />}
                         chart={{
                             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-                            series: [40, 70, 50, 28, 70, 75, 7, 64], // Dữ liệu giả định cho biểu đồ
+                            series: [40, 70, 50, 28, 70, 75, 7, 64],
                         }}
                     />
                 </div>
@@ -102,4 +105,4 @@ const RevenueAnalyticsCard = () => {
     );
 };
 
-export default RevenueAnalyticsCard;
+export default RevenueAnalyticsCardEmployee;

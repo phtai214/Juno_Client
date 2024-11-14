@@ -5,10 +5,11 @@ module.exports = {
     resolve: {
         fallback: {
             "http": require.resolve("stream-http"),
-            // Nếu bạn gặp lỗi với các mô-đun khác như 'https', bạn có thể thêm chúng ở đây
             "https": require.resolve("https-browserify"),
-            "buffer": require.resolve("buffer/"),
-            // Thêm các polyfill khác nếu cần
+            "buffer": require.resolve("buffer"),
+            "path": require.resolve("path-browserify"), // Polyfill cho path
+            "crypto": require.resolve("crypto-browserify"), // Polyfill cho crypto
+            "os": require.resolve("os-browserify/browser"), // Polyfill cho os
         },
     },
     // ... các cấu hình khác của Webpack

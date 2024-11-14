@@ -73,9 +73,37 @@
                         }
                     }
                 }
+                .alert-success {
+                    color: #155724;                 // Màu chữ xanh đậm giúp nổi bật hơn
+                    background-color: #d4edda;      // Màu nền xanh nhạt
+                    border: 1px solid #c3e6cb;      // Viền cùng tông với màu nền
+                    padding: 15px;                  // Khoảng cách bên trong giúp văn bản không bị dính sát
+                    border-radius: 5px;             // Bo góc cho phần thông báo
+                    font-size: 1rem;
+                    margin-top: 15px;               // Khoảng cách với các phần tử bên trên
+                    text-align: center;
+                }
                 .form-end{
                     display:flex;
                     justify-content: space-between;
+                    .form-end-btn {
+                        background-color: #007bff;      // Màu xanh đậm
+                        color: #ffffff;
+                        border: none;
+                        padding: 12px 20px;
+                        border-radius: 5px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease; // Hiệu ứng hover
+                    
+                        &:hover {
+                            background-color: #0056b3; // Đổi màu xanh đậm hơn khi hover
+                        }
+                    
+                        &:active {
+                            transform: scale(0.98);     // Tạo hiệu ứng nhấn xuống khi click
+                        }
+                    }
                 }
             }
         }

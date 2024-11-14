@@ -26,10 +26,12 @@ const Register = () => {
             if (response.data.success) {
                 setSuccess(response.data.message); // Hiển thị thông báo thành công
                 setError(null);
+                alert("Đăng ký thành công! Tự động chuyển hướng sau 2 giây");
                 setTimeout(() => {
                     navigate('/login'); // Chuyển hướng đến trang đăng nhập sau 5 giây
-                }, 5000);
+                }, 2000);
             } else {
+                alert("Đăng ký không thành công! Có lỗi khi đăng ký");
                 setError(response.data.message); // Hiển thị thông báo lỗi
                 setSuccess(null);
             }
@@ -44,7 +46,6 @@ const Register = () => {
             <i className="signup-container-note">Chỉ cần vài bước đăng ký để tận hưởng nhiều quyền lợi hơn khi mua sản phẩm. Tham gia hội thành viên Juno ngay hôm nay bạn nhé!</i>
 
             {error && <div className="error-message">{error}</div>} {/* Hiển thị thông báo lỗi */}
-            {success && <div className="success-message">{success}</div>} {/* Hiển thị thông báo thành công */}
 
             <form className="form-box" onSubmit={handleRegister}>
                 <div className="mb-3">

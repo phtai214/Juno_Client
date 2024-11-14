@@ -5,7 +5,6 @@ import "../../style/pages/customer/Product.scss";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 
-
 const Products = () => {
     const dispatch = useDispatch();
     const [products, setProducts] = useState([]);
@@ -36,8 +35,6 @@ const Products = () => {
         fetchData();
         dispatch(fetchProducts());
     }, [dispatch]);
-
-
 
     return (
         <div className="product-container">
@@ -70,6 +67,7 @@ const Products = () => {
                                         </div>
                                         <p className="name-product">{product.name}</p>
                                         <p className="price-product">{parseInt(product.price).toLocaleString('vi-VN')}đ</p>
+                                        {product.quantity <= 0 && <span className="out-of-stock-tag ">Hết hàng</span>} {/* Thêm thẻ Hết hàng */}
                                     </div>
                                 ))
                             )}

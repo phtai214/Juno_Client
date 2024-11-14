@@ -21,12 +21,12 @@ const ReviewAnalyticsCard = () => {
 
                 // Tính tổng đánh giá trong tháng hiện tại và tháng trước
                 const reviewsInCurrentMonth = data.filter(review => {
-                    const startDay = new Date(review.createdAt);
+                    const startDay = new Date(review.created_at);
                     return startDay.getMonth() === currentMonth; // Lọc theo tháng hiện tại
                 });
 
                 const reviewsInPreviousMonth = data.filter(review => {
-                    const startDay = new Date(review.createdAt);
+                    const startDay = new Date(review.created_at);
                     return startDay.getMonth() === previousMonth; // Lọc theo tháng trước
                 });
 

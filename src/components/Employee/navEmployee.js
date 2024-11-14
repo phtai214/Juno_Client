@@ -8,7 +8,7 @@ import { Dropdown } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { icons } from '../../app/data/icon';
 
-const NavAdmin = () => {
+const NavEmployee = () => {
     const user = useSelector((state) => state.user);
     const userRole = localStorage.getItem('userRole');
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -31,7 +31,7 @@ const NavAdmin = () => {
     return (
         <div className="navbar-navadmin">
             <div className="nav-admin">
-                {userRole === 'admin' && (
+                {userRole === 'employee' && (
                     <>
                         <div className="search-box-container nav-item">
                             <SearchBar />
@@ -58,4 +58,4 @@ const NavAdmin = () => {
     );
 };
 
-export default NavAdmin;
+export default NavEmployee;
