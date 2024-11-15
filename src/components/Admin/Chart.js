@@ -59,7 +59,7 @@ export default function Chart() {
 
     return (
         <div className="chart-container">
-            <h2 className="chart-title">Weekly Recap</h2>
+            <h2 className="chart-title">Daily Recap</h2>
             <ResponsiveContainer width="100%" height="90%">
                 <LineChart
                     width={700}

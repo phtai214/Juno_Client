@@ -36,12 +36,12 @@
   }
   .btn-box-create{
     display:flex;
-    justify-content: end;
+    justify-content: start;
     .create-user{
-      border-radius: 15px;
+      border-radius: 8px;
       width:max-content;
       border: none;
-      padding: 15px;
+      padding: 12px;
       background-color: #0b7ffa;
       color: white;
     }
