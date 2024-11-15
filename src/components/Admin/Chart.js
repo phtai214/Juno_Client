@@ -75,7 +75,14 @@ export default function Chart() {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
                     <YAxis />
-                    <Tooltip formatter={(value) => formatPrice(value)} />
+                    <Tooltip
+                        formatter={(value, name) => {
+                            if (name === 'revenue') {
+                                return [formatPrice(value), name];
+                            }
+                            return [value, name]; // Trả về số lượng đơn hàng mà không định dạng
+                        }}
+                    />
                     <Legend />
                     <Line type="monotone" dataKey="revenue" stroke="#8884d8" activeDot={{ r: 8 }} />
                     <Line type="monotone" dataKey="order" stroke="#82ca9d" />
