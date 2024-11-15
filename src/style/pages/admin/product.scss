@@ -123,7 +123,7 @@ $hover-bg: #e2e6ea;
                     }
                     .btn-color-hồng{
                         border: none;
-                        background-color: rgb(224, 117, 210);
+                        background-color: rgb(252, 142, 237);
                         border-radius: 50%;
                         width: 30px;
                         height:30px;
@@ -139,7 +139,7 @@ $hover-bg: #e2e6ea;
                             }
                             .btn-color-xanh{
                                 border: none;
-                                background-color: rgb(107, 152, 248);
+                                background-color: rgb(117, 161, 255);
                                 border-radius: 50%;
                                 width: 30px;
                                 height:30px;
@@ -157,6 +157,7 @@ $hover-bg: #e2e6ea;
           }
         }
     }
+
 
     .pagination {
         display: flex;
@@ -218,4 +219,6 @@ $hover-bg: #e2e6ea;
             }
         }
       }    
-}
+
+    }
+

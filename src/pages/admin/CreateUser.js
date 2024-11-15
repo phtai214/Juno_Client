@@ -45,7 +45,7 @@ const userData = {
             <h2>Create User</h2>
            <form className="form-box" onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Tên <span className="highlight">*</span></label>
+                    <label htmlFor="name" className="form-label">Họ tên <span className="highlight">*</span></label>
                     <input type="text" className="form-control" id="name" required />
                 </div>
                 <div className="mb-3">
@@ -61,10 +61,10 @@ const userData = {
                     <input type="password" className="form-control" id="confirmPassword" required />
                 </div>
 
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <input type="checkbox" id="subscribe" name="subscribe" />
                     <label htmlFor="subscribe"> Nhận tin khuyến mãi từ Juno qua email</label>
-                </div>
+                </div> */}
                 <div className="d-grid mt-4">
                     <button type="submit" className="btn btn-primary">Đăng Ký</button>
                 </div>

@@ -34,24 +34,33 @@
            }
         }
         .booking-status-completed {
-            background-color: green;
+            background-color: rgb(8, 224, 8);
             padding: 10px;
-            border-radius: 15px;
+            border-radius: 8px;
             width:max-content; 
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
         }
         
         .booking-status-pending {
             background-color: orange; 
             padding: 10px;
-            border-radius: 15px;
+            border-radius: 8px;
             width:max-content;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
         }
         
         .booking-status-cancelled {
             background-color: red;
             padding: 10px;
-            border-radius: 15px;
+            border-radius: 8px;
             width:max-content;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
         }
         
         .booking-status-shipping {
