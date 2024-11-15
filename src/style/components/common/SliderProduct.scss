@@ -118,3 +118,336 @@
     }
     
 }
+
+@media (max-width: 768px) {
+    .slider-container {
+        width: 85%; // Điều chỉnh kích thước container
+    }
+
+    .product-slider-flash-sale {
+        
+    .product-slider-item {
+        height: max-content;
+        width: 140px;
+        padding: 10px;
+        
+        .product-slider-image-box {
+            .product-slider-image {
+                position: relative;
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+            .product-slider-highlight {
+                position: absolute;
+                right: 5%;
+                top: 2%;
+                background-color: rgb(223, 28, 28);
+                color: white;
+                font-size: 13px;
+                font-weight: 500;
+                padding: 5px;
+                border-radius: 2px;
+            }
+        }
+        
+        .product-slider-title {
+            font-size: 16px;
+            white-space: nowrap;         
+            overflow: hidden;           
+            text-overflow: ellipsis;      
+            width: 100%;            
+            display: block;
+            padding: 5px;
+            text-align: center;
+            margin: 0;
+        }
+        
+        .price-product {
+            text-align: center;
+            color: rgb(223, 28, 28);
+        }
+        
+        .btn-product-color {
+            margin: 20px auto 5px;
+            display: none;
+            justify-content: center;
+
+            .btn-color1 {
+                border: none;
+                background-color: black;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                margin: 5px;
+            }
+            .btn-color2 {
+                border: none;
+                background-color: rgb(252, 202, 169);
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                margin: 5px;
+            }
+            .btn-color3 {
+                border: none;
+                background-color: rgb(122, 56, 26);
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                margin: 5px;
+            }
+        }
+
+        .btn-pay-flash-sale {
+            border: none;
+            width: 80%;
+            padding: 10px;
+            margin: 0 auto 10px ;
+            display: none;  
+            text-align: center;
+            background-color: rgb(223, 28, 28);
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+       
+    }
+    
+
+    .swiper-pagination {
+        display: none; // Ẩn dot pagination
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: rgb(0, 0, 0); 
+        top: 30%;    // Dịch nút lên phía trên
+        transform: scale(0.5); // Giảm kích thước của nút
+    }
+    .product-slider-link{
+        display: flex;
+        width: max-content;
+        text-decoration: none;
+        justify-content: center;
+        padding: 10px;
+        margin: 10px auto;
+        font-size: 20px;
+        color:rgb(97, 97, 97);
+        border-bottom: 1px solid rgb(51, 51, 51);
+
+    }
+    
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-container {
+        width: 95%; // Tăng độ rộng để tối ưu cho màn hình rất nhỏ
+    }
+
+    .product-slider-flash-sale {
+        
+        .product-slider-item {
+            height: max-content;
+            width: 150px;
+            margin:0 !important;
+            .product-slider-image-box {
+                .product-slider-image {
+                    position: relative;
+                    width: 60px;
+                    height: 100px;
+                    object-fit: cover;
+                }
+                .product-slider-highlight {
+                    position: absolute;
+                    right: 5%;
+                    top: 2%;
+                    background-color: rgb(223, 28, 28);
+                    color: white;
+                    font-size: 13px;
+                    font-weight: 500;
+                    padding: 5px;
+                    border-radius: 2px;
+                }
+            }
+            
+            .product-slider-title {
+                font-size: 8px;
+                white-space: nowrap;         
+                overflow: hidden;           
+                text-overflow: ellipsis;      
+                width: 100%;            
+                display: block;
+                padding: 5px;
+                text-align: center;
+                margin: 0;
+            }
+            
+            .price-product {
+                text-align: center;
+                color: rgb(223, 28, 28);
+                font-size: 8px;
+
+            }
+            
+            .btn-product-color {
+                margin: 20px auto 5px;
+                display: none;
+                justify-content: center;
+    
+                .btn-color1 {
+                    border: none;
+                    background-color: black;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    margin: 5px;
+                }
+                .btn-color2 {
+                    border: none;
+                    background-color: rgb(252, 202, 169);
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    margin: 5px;
+                }
+                .btn-color3 {
+                    border: none;
+                    background-color: rgb(122, 56, 26);
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    margin: 5px;
+                }
+            }
+    
+            .btn-pay-flash-sale {
+                border: none;
+                width: 80%;
+                padding: 10px;
+                margin: 0 auto 10px ;
+                display: none;  
+                text-align: center;
+                background-color: rgb(223, 28, 28);
+                color: white;
+                font-size: 13px;
+                font-weight: 500;
+            }
+    
+           
+        }
+        
+        .product-slider-item {
+            height: max-content;
+            width: 200px;
+            
+            .product-slider-image-box {
+                .product-slider-image {
+                    position: relative;
+                    width: 100%;
+                    height: 350px;
+                    object-fit: cover;
+                }
+                .product-slider-highlight {
+                    position: absolute;
+                    right: 5%;
+                    top: 2%;
+                    background-color: rgb(223, 28, 28);
+                    color: white;
+                    font-size: 13px;
+                    font-weight: 500;
+                    padding: 5px;
+                    border-radius: 2px;
+                }
+            }
+            
+            .product-slider-title {
+                font-size: 16px;
+                white-space: nowrap;         
+                overflow: hidden;           
+                text-overflow: ellipsis;      
+                width: 100%;            
+                display: block;
+                padding: 5px;
+                text-align: center;
+                margin: 0;
+            }
+            
+            .price-product {
+                text-align: center;
+                color: rgb(223, 28, 28);
+                font-size: 16px;
+            }
+            
+            .btn-product-color {
+                margin: 20px auto 5px;
+                display: none;
+                justify-content: center;
+    
+                .btn-color1 {
+                    border: none;
+                    background-color: black;
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    margin: 5px;
+                }
+                .btn-color2 {
+                    border: none;
+                    background-color: rgb(252, 202, 169);
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    margin: 5px;
+                }
+                .btn-color3 {
+                    border: none;
+                    background-color: rgb(122, 56, 26);
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    margin: 5px;
+                }
+            }
+    
+            .btn-pay-flash-sale {
+                border: none;
+                width: 80%;
+                padding: 10px;
+                margin: 0 auto 10px ;
+                display: none;  
+                text-align: center;
+                background-color: rgb(223, 28, 28);
+                color: white;
+                font-size: 13px;
+                font-weight: 500;
+            }
+    
+           
+        }
+        
+    
+        .swiper-pagination {
+            display: none; // Ẩn dot pagination
+        }
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: rgb(0, 0, 0); 
+            top: 30%;    // Dịch nút lên phía trên
+            transform: scale(0.5); // Giảm kích thước của nút
+        }
+        .product-slider-link{
+            display: flex;
+            width: max-content;
+            text-decoration: none;
+            justify-content: center;
+            padding: 10px;
+            margin: 10px auto;
+            font-size: 20px;
+            color:rgb(97, 97, 97);
+            border-bottom: 1px solid rgb(51, 51, 51);
+    
+        }
+    }
+}

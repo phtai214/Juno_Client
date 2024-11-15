@@ -77,7 +77,7 @@ const Home = () => {
                     <div className="product-new-box row">
                         {
                             products.map((product, index) => (
-                                <div key={index} className="product-new-item col-md-4">
+                                <div key={index} className="product-new-item col-md-4 col-sm-6">
                                     <Link to={`/customer/product/slug/${product.slug}`}>
                                         <img className="product-new-item-image" src={product.image_url} alt={product.name} />
                                     </Link>

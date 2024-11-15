@@ -10,6 +10,18 @@
         text-align: center;
         margin-bottom: 20px;
     }
+    .check-box-box{
+        display:flex;
+        justify-content: space-between;
+        padding: 10px;
+        margin: 10px 0;
+        align-items: center;
+        input{
+            width: 20px;
+            margin-right: 20px;
+        }
+    }
+
 
     label {
         display: block;

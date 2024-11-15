@@ -58,7 +58,7 @@ function UsersPageEmployee() {
     };
 
     const handleUpdate = (userId) => {
-        navigate(`/employee/updateUser/${userId}`); // Navigate to UpdateUser page with userId
+        navigate(`/admin/updateUser/${userId}`); // Navigate to UpdateUser page with userId
     };
 
     const handleDelete = async (userId) => {
@@ -71,8 +71,9 @@ function UsersPageEmployee() {
                     limit: itemsPerPage,
                 },
             });
-            alert("User delete successfully!");
             const data = response.data;
+            alert("User delete successfully!");
+
             if (Array.isArray(data.users)) {
                 setData(data.users);
                 setFilteredData(data.users);
@@ -159,5 +160,6 @@ function UsersPageEmployee() {
         </div>
     );
 }
+
 
 export default UsersPageEmployee;

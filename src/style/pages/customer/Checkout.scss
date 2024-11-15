@@ -37,6 +37,24 @@
                         margin-right: 5px;
                     }
                 }
+                @media (max-width: 769px){
+                    .address-box{
+                        display: block;
+                        .addressInput{
+                            height:40px;
+                            margin: 10px;
+                        }
+                    }
+                }
+                @media (max-width: 480px){
+                    .address-box{
+                        display: block;
+                        .addressInput{
+                            height:40px;
+                            margin: 10px;
+                        }
+                    }
+                }
                 .shipping-method{
                     margin: 20px 0;
                     .label-input{

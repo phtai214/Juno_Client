@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import "../../style/components/common/SliderProduct.scss";
 import { useDispatch } from 'react-redux';
 import { fetchProducts } from '../../redux/slices/productSlice';
@@ -42,37 +42,49 @@ const SliderProduct = () => {
         <div className="slider-container">
             <div className="product-slider-flash-sale">
                 <Swiper
-                    modules={[Navigation, Pagination, Autoplay]}
-                    spaceBetween={30}
-                    slidesPerView={5}
+                    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                    spaceBetween={20}
+                    loop={true}
                     navigation
                     pagination={{ clickable: true }}
-                    autoplay={{ delay: 4000 }}
-                    loop={true}
+                    scrollbar={{ draggable: true }}
+                    breakpoints={{
+                        480: { // Kích thước nhỏ hơn hoặc bằng 480px
+                            slidesPerView: 2,
+                            spaceBetween: 10,
+                        },
+                        768: { // Kích thước nhỏ hơn hoặc bằng 768px
+                            slidesPerView: 3,
+                            spaceBetween: 15,
+                        },
+                        1024: { // Lớn hơn 768px
+                            slidesPerView: 5,
+                            spaceBetween: 20,
+                        },
+                    }}
                 >
                     {products.map((product, index) => (
-                        <SwiperSlide key={index}>
-                            <div className="product-slider-item">
-                                <Link className="product-slider-image-box" to={`/customer/product/slug/${product.slug}`}>
-                                    <img className="product-slider-image" src={product.image_url} alt={product.name} />
-                                    <span className="product-slider-highlight">FLASH SALE</span>
-                                </Link>
+                        <SwiperSlide key={index} className="product-slider-item">
 
-                                <p className="product-slider-title">{product.name}</p>
-                                <p className="price-product">{parseInt(product.price).toLocaleString('vi-VN')}đ</p>
-                                <div className="btn-product-color">
-                                    {product.variations && product.variations.map((variation, i) => (
-                                        <button key={i} className={`btn-color${i + 1}`} style={{ backgroundColor: variation.color }}></button>
-                                    ))}
-                                </div>
-                                <button className="btn-pay-flash-sale">Mua giá FLASH SALE</button>
+                            <Link className="product-slider-image-box" to={`/customer/product/slug/${product.slug}`}>
+                                <img className="product-slider-image" src={product.image_url} alt={product.name} />
+                                <span className="product-slider-highlight">FLASH SALE</span>
+                            </Link>
+
+                            <p className="product-slider-title">{product.name}</p>
+                            <p className="price-product">{parseInt(product.price).toLocaleString('vi-VN')}đ</p>
+                            <div className="btn-product-color">
+                                {product.variations && product.variations.map((variation, i) => (
+                                    <button key={i} className={`btn-color${i + 1}`} style={{ backgroundColor: variation.color }}></button>
+                                ))}
                             </div>
+                            <button className="btn-pay-flash-sale">Mua giá FLASH SALE</button>
                         </SwiperSlide>
                     ))}
                 </Swiper>
                 <Link className="product-slider-link" to="">Xem Tất Cả</Link>
             </div>
-        </div>
+        </div >
     );
 };
 

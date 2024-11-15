@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../../style/pages/admin/CreateShop.scss'; // Nếu cần style riêng
-
+import { useNavigate } from "react-router-dom"
 const CreateShopEmployee = () => {
+    const navigate = useNavigate();
     const [shopData, setShopData] = useState({
         name: '',
         location: '',
@@ -51,6 +52,7 @@ const CreateShopEmployee = () => {
             setSuccessMessage('Shop created successfully!');
             setShopData({ name: '', location: '', phone_number: '', img: null, url_map: '' }); // Reset form
             alert("Tạo shop thành công");
+            navigate('/admin/shops');
 
         } catch (error) {
             console.error('Error creating shop:', error);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../style/pages/admin/ProductForm.scss";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const UpdateProduct = () => {
     const { id } = useParams();
@@ -24,6 +24,8 @@ const UpdateProduct = () => {
         origin: "",
         vat_included: true,
     });
+    const navigate = useNavigate();
+
     const [variations, setVariations] = useState([
         { size: "", color: "", imageUrl: "", quantity: 0 },
     ]);
@@ -167,6 +169,7 @@ const UpdateProduct = () => {
                 },
             });
             alert("Product updated successfully!");
+            navigate("/admin/products");
             console.log("check fromData >>> ", formData)
         } catch (error) {
             console.error("Error:", error);
@@ -218,12 +221,12 @@ const UpdateProduct = () => {
                 <div className="form-group">
                     <label>Category:</label>
                     <select value={category} onChange={handleCategoryChange}>
-                        <option value="">Select Category</option>
-                        <option value="Medium Bag">Medium Bag</option>
-                        <option value="Small Bag">Small Bag</option>
-                        <option value="Large Bag">Large Bag</option>
-                        <option value="Backpack">Backpack</option>
-                        <option value="Clutch">Clutch</option>
+                        <option value="">Chọn phân loại</option>
+                        <option value="Túi cỡ trung">Túi cỡ trung</option>
+                        <option value="Túi cỡ nhỏ">Túi cỡ nhỏ</option>
+                        <option value="Túi cỡ lớn">Túi cỡ lớn</option>
+                        <option value="Balo">Balo</option>
+                        <option value="Ví - Clutch">Ví - Clutch</option>
                     </select>
                 </div>
 

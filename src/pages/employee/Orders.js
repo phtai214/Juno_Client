@@ -45,9 +45,8 @@ export default function OrdersEmployee() {
             ));
 
             await axios.delete(`http://localhost:3001/api/v1/order/${order.id}`);
-
+            alert("Xóa Order thành công");
             const updatedData = data.filter((item) => item.id !== order.id);
-            alert("Xóa đơn hàng thành công!");
             setData(updatedData);
             setFilteredData(updatedData);
             console.log('Order and its items deleted successfully');
@@ -81,13 +80,14 @@ export default function OrdersEmployee() {
         );
         setFilteredData(filtered);
     };
+    const truncateAddress = (address) => {
+        const words = address.split(' ');
+        return words.length > 5 ? words.slice(0, 5).join(' ') + '...' : address;
+    };
 
     return (
         <div className="order-container">
             <h2 className="orderTitle">Order</h2>
-            <Link to="/dashboard/orders/create">
-                <button className="btn-create">Create new order</button>
-            </Link>
 
             {/* Search Input */}
             <input
@@ -101,20 +101,20 @@ export default function OrdersEmployee() {
             {/* Status Filter Dropdown */}
             <div className="borderFilterMobile option browse-tags">
                 <label className="lb-filter" htmlFor="status-filter">Filter by status:</label>
-                <span className="custom-dropdown custom-dropdown--grey">
-                    <select
-                        className="status-filter custom-dropdown__select"
-                        id="status-filter"
-                        value={statusFilter}
-                        onChange={handleStatusChange}
-                    >
-                        <option value="">All Status</option>
-                        <option value="pending">pending</option>
-                        <option value="completed">completed</option>
-                        <option value="cancelled">cancelled</option>
-                        <option value="shipping">shipping</option>
-                    </select>
-                </span>
+
+                <select
+                    className="status-filter custom-dropdown__select"
+                    id="status-filter"
+                    value={statusFilter}
+                    onChange={handleStatusChange}
+                >
+                    <option value="">All Status</option>
+                    <option value="pending">pending</option>
+                    <option value="completed">completed</option>
+                    <option value="cancelled">cancelled</option>
+                    <option value="shipping">shipping</option>
+                </select>
+
             </div>
 
             <table className="table">
@@ -132,8 +132,7 @@ export default function OrdersEmployee() {
                 <tbody>
                     {filteredData.map((order) => (
                         <tr className="order-item" key={order.id}>
-                            <td>{order.shipping_address}</td>
-                            <td>{order.user.name}</td>
+                            <td className="order-item-address">{truncateAddress(order.shipping_address)}</td>                            <td>{order.user.name}</td>
                             <td>{order.phone_number}</td>
                             <td>{moment(order.created_at).format('YYYY-MM-DD HH:mm')}</td>
                             <td>{order.payment_method}</td>

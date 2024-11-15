@@ -88,9 +88,6 @@ export default function Orders() {
     return (
         <div className="order-container">
             <h2 className="orderTitle">Order</h2>
-            <Link to="/dashboard/orders/create">
-                <button className="btn-create">Create new order</button>
-            </Link>
 
             {/* Search Input */}
             <input
@@ -104,7 +101,7 @@ export default function Orders() {
             {/* Status Filter Dropdown */}
             <div className="borderFilterMobile option browse-tags">
                 <label className="lb-filter" htmlFor="status-filter">Filter by status:</label>
-                <span className="custom-dropdown custom-dropdown--grey">
+
                     <select
                         className="status-filter custom-dropdown__select"
                         id="status-filter"
@@ -117,7 +114,7 @@ export default function Orders() {
                         <option value="cancelled">cancelled</option>
                         <option value="shipping">shipping</option>
                     </select>
-                </span>
+           
             </div>
 
             <table className="table">

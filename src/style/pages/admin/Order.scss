@@ -41,43 +41,39 @@
   }
 
   .borderFilterMobile {
-    margin-bottom: 20px;
+    margin: 1rem 0; // Khoảng cách trên dưới cho bộ lọc
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     display: flex;
-    align-items: center;
-    gap: 10px;
-
+    flex-direction: column;
+    width: 20%;
     .lb-filter {
-      font-size: 16px;
-      color: #333;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 0.5rem; // Khoảng cách giữa nhãn và dropdown
     }
 
-    .custom-dropdown {
-      position: relative;
-      width: 200px;
-
-      .custom-dropdown__select {
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+    .status-filter {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+        color: #333;
         background-color: #fff;
-        cursor: pointer;
+        transition: border-color 0.3s ease;
 
         &:focus {
-          border-color: #007bff;
-          outline: none;
+            outline: none;
+            border-color: #007bff; // Đổi màu viền khi focus
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); // Hiệu ứng đổ bóng khi focus
         }
-      }
 
-      &::after {
-        content: '▼';
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        pointer-events: none;
-      }
+        option {
+            font-size: 1rem; // Kích thước chữ cho các option
+        }
     }
   }
 
@@ -280,4 +276,70 @@
       padding: 6px 12px;
     }
   }
+}
+@media (max-width: 480px) {
+  .order-container {
+    .borderFilterMobile {
+      margin: 0.5rem 0; // Khoảng cách trên dưới cho bộ lọc
+      padding: 0.5rem;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      .lb-filter {
+          font-size: 0.5rem;
+          font-weight: 500;
+          color: #333;
+          margin-bottom: 0.2rem; // Khoảng cách giữa nhãn và dropdown
+      }
+  
+      .status-filter {
+          padding: 0.2rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 12px;
+          color: #333;
+          background-color: #fff;
+          transition: border-color 0.3s ease;
+  
+          &:focus {
+              outline: none;
+              border-color: #007bff; // Đổi màu viền khi focus
+              box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); // Hiệu ứng đổ bóng khi focus
+          }
+  
+          option {
+              font-size:  12px; // Kích thước chữ cho các option
+          }
+      }
+    }
+    .table {
+      th, td {
+        &:first-child {
+          padding-left: 5px;
+        }
+  
+        &:last-child {
+          padding-right: 0;
+        }
+          &:nth-child(1),
+          &:nth-child(3), 
+          &:nth-child(4), // Email
+          &:nth-child(5) { // Phone Number
+              display: none; // Ẩn các cột Email và Phone Number
+          }
+          tr{
+            display:flex ;
+            align-items: center;
+          }
+      
+  
+  
+          
+      }
+  }
+  }
+  
 }

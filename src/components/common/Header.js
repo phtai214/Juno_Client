@@ -1,6 +1,5 @@
-// src/components/common/Header.js
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../style/components/common/Header.scss";
 import SearchBar from "./SearchBar";
@@ -10,44 +9,46 @@ import { Dropdown } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import CartHeader from "./CartHeader";
 import { addItem, updateCartCount } from '../../redux/slices/cartSlice';
+
 const Header = () => {
     const dispatch = useDispatch();
     const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem('cart')) || false);
-    const user = useSelector((state) => state.user); // Lấy thông tin người dùng từ Redux store
+    const user = useSelector((state) => state.user);
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     const navigate = useNavigate();
+    const location = useLocation(); // Sử dụng useLocation để theo dõi địa chỉ URL
     const userId = localStorage.getItem('userId');
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
     useEffect(() => {
         const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
         if (Array.isArray(savedCartItems)) {
             savedCartItems.forEach(item => {
                 dispatch(addItem(item));
             });
-            dispatch(updateCartCount(savedCartItems.length)); // Cập nhật số lượng giỏ hàng
+            dispatch(updateCartCount(savedCartItems.length));
         }
     }, [dispatch]);
 
-    const cartCount = useSelector((state) => state.cart.count);
-    console.log("check cartCount", cartCount);
-    const toggleCart = () => {
+    // Theo dõi sự thay đổi của địa chỉ URL
+    useEffect(() => {
+        setIsCollapsed(false); // Đặt trạng thái collapse về false khi địa chỉ URL thay đổi
+    }, [location]);
 
+    const cartCount = useSelector((state) => state.cart.count);
+    const toggleCart = () => {
         setCart(true);
     };
 
     const handleLogout = () => {
-        console.log('Đăng xuất');
-        // Xóa dữ liệu đăng nhập khỏi localStorage
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('userId');
         localStorage.removeItem('userRole');
         localStorage.removeItem('userName');
         localStorage.removeItem('userEmail');
         localStorage.removeItem('cartInitialized');
-        // Dispatch logout action để cập nhật Redux state
         dispatch(logout());
         dispatch(clearUser());
-
-        // Điều hướng người dùng tới trang mong muốn sau khi đăng xuất
         navigate('/customer/sale-thuong-thuong');
     };
 
@@ -58,8 +59,9 @@ const Header = () => {
     const handleClick = () => {
         navigate('/login');
     };
-    const handleNavigate = (path) => {
-        navigate(path);
+
+    const handleToggle = () => {
+        setIsCollapsed(!isCollapsed); // Đảo trạng thái collapse
     };
 
     return (
@@ -75,11 +77,11 @@ const Header = () => {
                                 <Link className="navbar-brand" to="/customer/home">
                                     <img src="https://res.cloudinary.com/dhjrrk4pg/image/upload/v1729458521/logo-juno-Photoroom_odhvyp.png" alt="Logo" className="logo" />
                                 </Link>
+                                <button className="navbar-toggler" type="button" onClick={handleToggle} aria-expanded={isCollapsed} aria-label="Toggle navigation">
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>
                             </div>
-                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon"></span>
-                            </button>
-                            <div className="collapse navbar-collapse col-md-11" id="navbarNav">
+                            <div className={`collapse navbar-collapse col-md-11 ${isCollapsed ? 'show' : ''}`} id="navbarNav">
                                 <ul className="navbar-nav ml-auto">
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/customer/new-product">Hàng Mới</Link>
@@ -92,11 +94,11 @@ const Header = () => {
                                                     <div className="col-md-6 col-sm-6 sub-menu-data">
                                                         <Link className="nav-menu-link" to="/customer/product">Túi</Link>
                                                         <ul>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/small-bag">Túi cỡ nhỏ</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/medium-bag">Túi cỡ trung </Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/large-bag">Túi cỡ lớn</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/backpack">Balo</Link></li>
-                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/Clutch">Ví - Clutch</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/túi-cỡ-nhỏ">Túi cỡ nhỏ</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/túi-cỡ-trung">Túi cỡ trung</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/túi-cỡ-lớn">Túi cỡ lớn</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/balo">Balo</Link></li>
+                                                            <li><Link className="nav-menu-link-item" to="/customer/product/category/ví-clutch">Ví - Clutch</Link></li>
                                                         </ul>
                                                     </div>
                                                     <div className="col-md-6 col-sm-6 sub-menu-data">
@@ -113,7 +115,7 @@ const Header = () => {
                                         </ul>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link hightlight" to="/customer/sale-thuong-thuong">SALE Thương Thương</Link>
+                                        <Link className="nav-link highlight" to="/customer/sale-thuong-thuong">SALE Thương Thương</Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/customer/showroom">SHOWROOM</Link>

@@ -1,15 +1,13 @@
 .navbar-navadmin{
     display:flex;
-    width: 90%;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0;
     justify-content: flex-end;
-    padding: 10px;
     height: 70px;
     align-items: center;
     background-color: rgba(249,250,251,255);
     .nav-admin{
         display:flex;
-        width: 20%;
         justify-content: space-between;
         .nav-item{
             .nav-link{
@@ -33,7 +31,7 @@
         }
         .search-box-container{
             width: 120px;
-            margin: 0 10px;
+            margin: 0 ;
         }
         .end-nav{
             display:flex;

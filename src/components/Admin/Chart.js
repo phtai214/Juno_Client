@@ -75,6 +75,7 @@ export default function Chart() {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
                     <YAxis />
+
                     <Tooltip
                         formatter={(value, name) => {
                             if (name === 'revenue') {

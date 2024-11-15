@@ -206,5 +206,42 @@
         }
       }
     }
+    @media (max-width: 480px) {
+      .employee-table {
+        width:90%;
+          th, td {
+            font-size: 10px;
+              // Ẩn các cột không cần thiết
+              &:nth-child(2), // Email
+              &:nth-child(3), // Chức vụ
+              &:nth-child(4) { // Trạng thái
+                  display: none; // Ẩn các cột
+              }
+          }
+
+          th, td{
+            &:nth-child(5){
+              width:170px;
+              
+            }
+          }
+          td{
+            height:60px;
+            &:first-child {
+              padding-left: 5px;
+            }
+      
+            &:last-child {
+              padding-right: 0;
+            }
+
+          }
+          
+          tr {
+              display: flex;
+              align-items: center;
+          }
+      }
   }
+}
   

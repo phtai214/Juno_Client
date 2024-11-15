@@ -10,7 +10,7 @@ const News = () => {
 
 
             <div className="data-bottom row">
-                <div className="col-md-6 data-bottom-box">
+                <div className="col-md-6 col-sm-12 data-bottom-box">
                     <div className="data-bottom-item row">
                         <div className="col-md-3 data-bottom-box-item">
                             <img
@@ -25,7 +25,7 @@ const News = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-md-6 data-bottom-box">
+                <div className="col-md-6 col-sm-12 data-bottom-box">
                     <div className="data-bottom-item row">
                         <div className="col-md-3 data-bottom-box-item">
                             <img

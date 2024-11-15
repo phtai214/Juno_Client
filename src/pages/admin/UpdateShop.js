@@ -69,6 +69,8 @@ const UpdateShop = () => {
                 }
             });
             setSuccessMessage('Shop updated successfully!');
+            alert("Shop updated successfully!");
+
             navigate('/admin/shops'); // Chuyển hướng về danh sách cửa hàng
         } catch (error) {
             console.error('Error updating shop:', error);

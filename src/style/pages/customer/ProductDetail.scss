@@ -181,6 +181,123 @@
             }
         }
     }
+    .reviews-section {
+        margin-top: 40px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      
+        h6 {
+          font-size: 1.5rem;
+          color: #2c3e50;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+      
+        .review-form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 30px;
+      
+          .rating {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+      
+            .star {
+              width: 30px;
+              height: 30px;
+              cursor: pointer;
+              transition: transform 0.2s ease-in-out;
+      
+              &:hover {
+                transform: scale(1.1);
+              }
+            }
+          }
+      
+          textarea {
+            width: 100%;
+            max-width: 500px;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            resize: none;
+            margin-bottom: 15px;
+      
+            &:focus {
+              outline: none;
+              border-color: #3498db;
+              box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+            }
+          }
+      
+          button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+      
+            &:hover {
+              background-color: #27ae60;
+            }
+          }
+        }
+      
+        .review-list {
+          .review-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      
+            .user-avatar {
+              width: 50px;
+              height: 50px;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+      
+            h6 {
+              font-size: 1.2rem;
+              color: #34495e;
+              margin: 0;
+      
+              span {
+                margin-left: 10px;
+                .star {
+                  width: 20px;
+                  height: 20px;
+                }
+              }
+            }
+      
+            p {
+              font-size: 1rem;
+              color: #555;
+              margin: 5px 0 0;
+            }
+          }
+      
+          p {
+            font-size: 1rem;
+            text-align: center;
+            color: #e74c3c;
+          }
+        }
+    }      
     .maybe-container{
         width:90%;
         margin: 0 auto;
@@ -231,8 +348,8 @@
         }
     }
     .reviews-section{
-        width:90%;
-        margin:0 auto;
+        width:40%;
+        margin-left: 5%;
         .review-form{
             .rating{
                 .star{
@@ -257,6 +374,39 @@
                     height: 20px;
                     cursor: pointer;
                     margin:2px;
+                }
+            }
+        }
+    }
+    @media (max-width: 480px) {
+        .reviews-section{
+            width:90%;
+            margin-left: 0 auto;
+            .review-form{
+                .rating{
+                    .star{
+                        width: 24px; /* Kích thước sao */
+                        height: 24px;
+                        cursor: pointer;
+                        margin:5px;
+                    }
+                }
+                
+            }
+            .review-list{
+                .review-item{
+                    .user-avatar{
+                        width: 34px;
+                        height:34px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                    }
+                    .star{
+                        width: 20px; /* Kích thước sao */
+                        height: 20px;
+                        cursor: pointer;
+                        margin:2px;
+                    }
                 }
             }
         }

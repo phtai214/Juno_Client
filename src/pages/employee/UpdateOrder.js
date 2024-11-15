@@ -8,9 +8,11 @@ const OrderUpdateEmployee = () => {
     const [orderDetails, setOrderDetails] = useState(null);
     const [orderItems, setOrderItems] = useState([]);
     const [orderStatus, setOrderStatus] = useState('');
+    const [totalAmount, setTotalAmount] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState('');
+    const [shippingAddress, setShippingAddress] = useState('');
     const { id } = useParams(); // ID của đơn hàng từ URL
     const navigate = useNavigate();
-
 
     useEffect(() => {
         const fetchOrderDetails = async () => {
@@ -18,6 +20,9 @@ const OrderUpdateEmployee = () => {
                 const response = await axios.get(`http://localhost:3001/api/v1/order/${id}`);
                 setOrderDetails(response.data);
                 setOrderStatus(response.data.status);
+                setTotalAmount(response.data.total_amount);
+                setPaymentMethod(response.data.payment_method);
+                setShippingAddress(response.data.shipping_address);
             } catch (error) {
                 console.error('Lỗi khi lấy thông tin đơn hàng:', error);
             }
@@ -42,12 +47,17 @@ const OrderUpdateEmployee = () => {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
-        const updatedData = { status: orderStatus };
+        const updatedData = {
+            status: orderStatus,
+            total_amount: totalAmount,
+            payment_method: paymentMethod,
+            shipping_address: shippingAddress,
+        };
 
         try {
             await axios.put(`http://localhost:3001/api/v1/order/${id}`, updatedData);
-            alert("order update successfully!");
-            navigate("/employee/orders"); // Sử dụng navigate để chuyển hướng
+            alert("update Order thành công");
+            navigate("/admin/orders"); // Sử dụng navigate để chuyển hướng
         } catch (error) {
             console.error('Failed to update order:', error);
         }
@@ -57,12 +67,37 @@ const OrderUpdateEmployee = () => {
         <div className="view-container">
             <h2>Order Update</h2>
             {orderDetails && (
-                <div>
-                    <p><strong>User ID:</strong> <i>{orderDetails.user_id}</i></p>
-                    <p><strong>Total Amount:</strong> <i>{orderDetails.total_amount}</i></p>
+                <form onSubmit={handleUpdate}>
+                    <p><strong>Tên:</strong> <i>{orderDetails.user ? orderDetails.user.name : 'N/A'}</i></p>
+                    <p><strong>Số điện thoại:</strong>
+                        <input
+                            type="number"
+                            value={orderDetails.phone_number}
+                            onChange={(e) => setTotalAmount(e.target.value)}
+                        />
+                    </p>
+                    <p><strong>Total Amount:</strong>
+                        <input
+                            type="number"
+                            value={totalAmount}
+                            onChange={(e) => setTotalAmount(e.target.value)}
+                        />
+                    </p>
                     <p><strong>Status:</strong> <i>{orderDetails.status}</i></p>
-                    <p><strong>Payment Method:</strong> <i>{orderDetails.payment_method}</i></p>
-                    <p><strong>Shipping Address:</strong> <i>{orderDetails.shipping_address}</i></p>
+                    <p><strong>Payment Method:</strong>
+                        <input
+                            type="text"
+                            value={paymentMethod}
+                            onChange={(e) => setPaymentMethod(e.target.value)}
+                        />
+                    </p>
+                    <p><strong>Shipping Address:</strong>
+                        <input
+                            type="text"
+                            value={shippingAddress}
+                            onChange={(e) => setShippingAddress(e.target.value)}
+                        />
+                    </p>
                     <p><strong>Created At:</strong> <i>{moment(orderDetails.created_at).format('YYYY-MM-DD HH:mm:ss')}</i></p>
                     <p><strong>Updated At:</strong> <i>{moment(orderDetails.updated_at).format('YYYY-MM-DD HH:mm:ss')}</i></p>
                     <div>
@@ -73,8 +108,8 @@ const OrderUpdateEmployee = () => {
                             />
                         </p>
                     </div>
-                    <button className="sub-update" onClick={handleUpdate}>Update</button>
-                </div>
+                    <button className="sub-update" type="submit">Update</button>
+                </form>
             )}
             <div>
                 <h3>Order Items</h3>

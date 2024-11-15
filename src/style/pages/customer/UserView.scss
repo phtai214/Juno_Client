@@ -187,4 +187,190 @@
       margin-top: 1rem;
     }
   }
+  @media (max-width: 769px) {
+    .user-container {
+      padding: 1.5rem;
+      gap: 1.5rem;
   
+      .ava-header {
+        flex-direction: column;
+        align-items: flex-start;
+  
+        .image .avatar {
+          width: 100px;
+          height: 100px;
+        }
+  
+        .name h2 {
+          font-size: 1.25rem;
+        }
+      }
+  
+      .btn {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+  
+    .purchase-history {
+      padding: 1.5rem;
+  
+      h3.purchase-history-title {
+        font-size: 12px;
+      }
+  
+
+        .orders-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 1rem;
+      
+          .table-header {
+            text-align: left;
+            padding: 1rem;
+            background-color: #f2f2f2;
+            font-size: 1rem;
+            color: #333;
+          }
+      
+          .order-row {
+            cursor: pointer;
+      
+            &:hover {
+              background-color: #f9f9f9;
+            }
+      
+            td {
+              padding: 1rem;
+              text-align: left;
+              border-bottom: 1px solid #e2e2e2;
+            }
+      
+            .order-id,
+            .order-total {
+              font-weight: 600;
+            }
+      
+            .order-status {
+              color: #388e3c;
+            }
+      
+            .order-created-at {
+              font-size: 0.9rem;
+              color: #888;
+            }
+      
+            .order-items {
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+              font-size: 0.9rem;
+            }
+          }
+        }
+      
+        p {
+          font-size: 1rem;
+          color: #888;
+          margin-top: 1rem;
+        }
+    }
+  }
+  
+  /* Dành cho màn hình nhỏ hơn 480px */
+  @media (max-width: 480px) {
+    .user-container {
+      padding: 1rem;
+      gap: 1rem;
+  
+      .ava-header {
+        .image .avatar {
+          width: 80px;
+          height: 80px;
+        }
+  
+        .name h2 {
+          font-size: 1rem;
+        }
+      }
+  
+      .email,
+      .phone-number,
+      .address {
+        h5 {
+          font-size: 0.9rem;
+        }
+  
+        input {
+          font-size: 0.9rem;
+          padding: 0.6rem;
+        }
+      }
+  
+      .btn {
+        padding: 0.6rem;
+        font-size: 0.8rem;
+      }
+    }
+  
+    .purchase-history {
+      padding: 1rem;
+  
+      h3.purchase-history-title {
+        font-size: 12px
+      }
+  
+      .orders-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    
+        .table-header {
+          text-align: center;
+          padding: 1px;
+          background-color: #f2f2f2;
+          font-size: 12px;
+          color: #333;
+          
+        }
+    
+        .order-row {
+          cursor: pointer;
+          text-align: center;
+          &:hover {
+            background-color: #f9f9f9;
+          }
+    
+          td {
+            padding: 1px;
+            text-align: left;
+            border-bottom: 1px solid #e2e2e2;
+          }
+    
+          .order-id,
+          .order-total {
+            font-weight: 500;
+            font-size: 10px;
+          }
+    
+          .order-status {
+            color: #388e3c;
+            font-size: 10px;
+          }
+    
+          .order-created-at {
+            font-size: 0.9rem;
+            color: #888;
+            font-size: 10px;
+          }
+    
+          .order-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }

@@ -1,11 +1,37 @@
-.chart-container{
-    height:450px;
+.chart-container {
+    height: 450px;
     background-color: var(--bgSoft);
     padding: 20px;
     border-radius: 10px;
-    .chart-title{
+
+    .chart-title {
         font-weight: 200;
         color: var(--textSoft);
         margin-bottom: 20px;
+    }
+
+    // Media Query cho màn hình nhỏ hơn 768px
+    @media (max-width: 768px) {
+        height: 300px; // Giảm chiều cao cho màn hình nhỏ hơn
+        padding: 15px; // Giảm padding
+
+        .chart-title {
+            font-size: 1.5rem; // Giảm kích thước chữ cho tiêu đề
+        }
+    }
+
+    // Media Query cho màn hình nhỏ hơn 480px
+    @media (max-width: 480px) {
+        height: 250px; // Giảm chiều cao thêm cho màn hình rất nhỏ
+        padding: 10px; // Giảm padding hơn
+
+        .chart-title {
+            font-size: 1.2rem; // Giảm kích thước chữ cho tiêu đề
+        }
+
+        // Đảm bảo rằng biểu đồ có thể hiển thị tốt
+        .recharts-wrapper {
+            padding: 0; // Đảm bảo không có padding thêm
+        }
     }
 }

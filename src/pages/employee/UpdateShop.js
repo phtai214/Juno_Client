@@ -70,7 +70,8 @@ const UpdateShopEmployee = () => {
             });
             setSuccessMessage('Shop updated successfully!');
             alert("Shop updated successfully!");
-            navigate('/employee/shops'); // Chuyển hướng về danh sách cửa hàng
+
+            navigate('/admin/shops'); // Chuyển hướng về danh sách cửa hàng
         } catch (error) {
             console.error('Error updating shop:', error);
             setErrorMessage('Failed to update shop. Please try again later.');

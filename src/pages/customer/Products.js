@@ -45,8 +45,6 @@ const Products = () => {
                         <button className="box-btn-product-setprice active" onClick={() => { setCombo749k(true); setCombo899k(false); setCombo949k(false); setCombo1149k(false); setCombo249k(false); }}>SET 749K</button>
                         <button className="box-btn-product-setprice" onClick={() => { setCombo749k(false); setCombo899k(true); setCombo949k(false); setCombo1149k(false); setCombo249k(false); }}>SET 899K</button>
                         <button className="box-btn-product-setprice" onClick={() => { setCombo749k(false); setCombo899k(false); setCombo949k(true); setCombo1149k(false); setCombo249k(false); }}>SET 949K</button>
-                        <button className="box-btn-product-setprice" onClick={() => { setCombo749k(false); setCombo899k(false); setCombo949k(false); setCombo1149k(true); setCombo249k(false); }}>SET 1149K</button>
-                        <button className="box-btn-product-setprice" onClick={() => { setCombo749k(false); setCombo899k(false); setCombo949k(false); setCombo1149k(false); setCombo249k(true); }}>Đồng Giá từ 249K</button>
                     </div>
                 </div>
                 {combo749k && (

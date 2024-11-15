@@ -123,42 +123,54 @@ const AddEmployee = () => {
                 </select>
 
                 <h3>Quyền hạn:</h3>
-                <label>
+                <div className="check-box-box">
+                    <label>
+                        Quản lý sản phẩm
+                    </label>
                     <input
                         type="checkbox"
                         name="manageProducts"
                         checked={permissions.manageProducts}
                         onChange={handlePermissionChange}
                     />
-                    Quản lý sản phẩm
-                </label>
-                <label>
+                </div>
+                <div className="check-box-box">
+                    <label>
+
+                        Quản lý đơn hàng
+                    </label>
                     <input
                         type="checkbox"
                         name="manageOrders"
                         checked={permissions.manageOrders}
                         onChange={handlePermissionChange}
                     />
-                    Quản lý đơn hàng
-                </label>
-                <label>
+                </div>
+
+                <div className="check-box-box">
+                    <label>
+                        Quản lý khách hàng
+                    </label>
                     <input
                         type="checkbox"
                         name="manageCustomers"
                         checked={permissions.manageCustomers}
                         onChange={handlePermissionChange}
                     />
-                    Quản lý khách hàng
-                </label>
-                <label>
+                </div>
+
+                <div className="check-box-box">
+                    <label>
+                        Hỗ trợ khách hàng
+                    </label>
                     <input
                         type="checkbox"
                         name="customerSupport"
                         checked={permissions.customerSupport}
                         onChange={handlePermissionChange}
                     />
-                    Hỗ trợ khách hàng
-                </label>
+                </div>
+
 
                 <button type="submit">Thêm Nhân Viên</button>
             </form>

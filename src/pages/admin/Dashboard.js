@@ -12,11 +12,11 @@ const Dashboard = () => {
         <div className="dashboard-container">
             <h3 className="dashboard-title">Hi, Welcome back</h3>
             <div className="dashboard-content">
-                <div className="dashboard-item">
-                    <AnalyticsCard />
-                    <OrderAnalyticsCard />
-                    <RevenueAnalyticsCard />
-                    <ReviewAnalyticsCard />
+                <div className="dashboard-item row">
+                    <div className="col-md-3 col-sm-12"><AnalyticsCard /></div>
+                    <div className="col-md-3 col-sm-12"><OrderAnalyticsCard /></div>
+                    <div className="col-md-3 col-sm-12"><RevenueAnalyticsCard /></div>
+                    <div className="col-md-3 col-sm-12"> <ReviewAnalyticsCard /></div>
                 </div>
                 <Transactions />
                 <Chart />

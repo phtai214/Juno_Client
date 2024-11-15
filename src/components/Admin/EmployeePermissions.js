@@ -13,6 +13,7 @@ const EmployeePermissions = () => {
         role: '',
         position: '', // Thêm trường position
         avatar: '',
+        status: '',
         phonenumber: '',
         address: ''
     });
@@ -39,6 +40,7 @@ const EmployeePermissions = () => {
                     position: userData.position, // Lấy position từ dữ liệu
                     avatar: userData.avatar,
                     phonenumber: userData.phonenumber,
+                    status: userData.status,
                     address: userData.address
                 });
 
@@ -157,6 +159,14 @@ const EmployeePermissions = () => {
                         <option value="">Select Position</option>
                         <option value="admin">Admin</option>
                         <option value="employee">Employee</option>
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="status">Status:</label> {/* Thay đổi thành dropdown */}
+                    <select id="status" name="status" value={employee.status} onChange={handleInputChange}>
+                        <option value="">Select Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
                     </select>
                 </div>
                 <div className="form-group">

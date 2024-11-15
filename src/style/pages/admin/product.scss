@@ -162,35 +162,60 @@ $hover-bg: #e2e6ea;
         display: flex;
         justify-content: center;
         margin-top: 20px;
-
+        padding: 0;
+        list-style: none;
+    
         .page-item {
-            margin: 0 5px;
-
-            .page-link {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 40px;
-                height: 40px;
-                font-size: 14px;
-                color: $primary-color;
-                background-color: #fff;
-                border: 1px solid $table-border-color;
-                border-radius: 4px;
-                transition: background-color 0.3s, color 0.3s;
-
-                &:hover {
-                    background-color: $primary-color;
-                    color: #fff;
-                }
+          margin: 0 5px;
+    
+          .page-link {
+            padding: 8px 16px;
+            background-color: #fff;
+            color: #007bff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-decoration: none;
+    
+            &:hover {
+              background-color: #007bff;
+              color: white;
             }
-
-            &.active .page-link {
-                background-color: $primary-color;
-                color: #fff;
-                font-weight: bold;
-                border-color: $primary-color;
+    
+            &.active {
+              background-color: #007bff;
+              color: white;
+              border-color: #007bff;
+            }
+          }
+        }
+    
+        .page-item.disabled .page-link {
+          color: #ddd;
+          cursor: not-allowed;
+        }
+      }
+      @media (max-width: 480px) {
+        .table {
+            th, td {
+              &:first-child {
+                padding-left: 5px;
+              }
+    
+                &:nth-child(3), // Email
+                &:nth-child(4) { // Phone Number
+                    display: none; // Ẩn các cột Email và Phone Number
+                }
+                tr{
+                  display:flex ;
+                  align-items: center;
+                  td{
+                        font-size: 12px;
+                  }
+                }
+               a{
+                font-size: 12px;
+               }
             }
         }
-    }
+      }    
 }

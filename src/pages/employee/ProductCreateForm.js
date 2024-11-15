@@ -165,7 +165,7 @@ const ProductCreateFormEmployee = () => {
         },
       });
       alert("Product created successfully!");
-      navigate('/employee/products')
+      navigate('/admin/products')
     } catch (error) {
       console.error("Error:", error);
     }
@@ -392,7 +392,6 @@ const ProductCreateFormEmployee = () => {
           </div>
         ))}
 
-        {/* Nút Thêm Biến Thể Mới */}
         <button
           type="button"
           onClick={handleAddVariation}
@@ -401,10 +400,11 @@ const ProductCreateFormEmployee = () => {
           Thêm Biến Thể Mới
         </button>
 
-        <button type="submit">Create Product</button>
+        <button className="btn-create-product" type="submit">Create Product</button>
       </form>
     </div>
   );
 };
+
 
 export default ProductCreateFormEmployee;

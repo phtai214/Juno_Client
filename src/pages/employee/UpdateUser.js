@@ -62,7 +62,7 @@ const UpdateUserEmployee = () => {
                 }
             });
             alert("User update successfully!");
-            navigate('/employee/user'); // Redirect to user list page
+            navigate('/admin/user'); // Redirect to user list page
         } catch (error) {
             console.error('Error updating user:', error);
         }

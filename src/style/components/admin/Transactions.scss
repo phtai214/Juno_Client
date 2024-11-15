@@ -61,4 +61,55 @@
             width:max-content;
         }
     }
+    @media (max-width: 480px) {
+        padding: 15px; // Giảm padding cho màn hình nhỏ hơn
+
+        .tran-title {
+            font-size: 15px; // Kích thước tiêu đề nhỏ hơn
+        }
+
+        .table {
+            td {
+                padding: 5px; // Giảm padding của các ô
+                font-size: 10px; // Kích thước chữ nhỏ hơn
+                .tran-user{
+                    display:flex;
+                    gap:5px;
+                    align-items: center;
+                   } 
+                .status {
+                    font-size: 8px; // Kích thước chữ cho trạng thái nhỏ hơn
+                }
+                
+            }
+            .booking-status-completed {
+                background-color: green;
+                padding: 5px;
+                border-radius: 10px;
+                width:max-content; 
+            }
+            
+            .booking-status-pending {
+                background-color: orange; 
+                padding: 5px;
+                border-radius: 10px;
+                width:max-content;
+            }
+            
+            .booking-status-cancelled {
+                background-color: red;
+                padding: 5px;
+                border-radius: 10px;
+                width:max-content;
+            }
+            
+            .booking-status-shipping {
+                background-color: blue; 
+                padding: 5px;
+                border-radius: 10px;
+                width:max-content;
+            }
+            
+        }
+    }
 }

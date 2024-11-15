@@ -26,11 +26,11 @@ const ShopListEmployee = () => {
     }, []);
 
     const handleCreateShop = () => {
-        navigate('/employee/shops/add'); // Chuyển hướng đến trang CreateShop
+        navigate('/admin/shops/add'); // Chuyển hướng đến trang CreateShop
     };
 
     const handleEditShop = (shopId) => {
-        navigate(`/employee/shops/edit/${shopId}`); // Chuyển hướng đến trang chỉnh sửa shop
+        navigate(`/admin/shops/edit/${shopId}`); // Chuyển hướng đến trang chỉnh sửa shop
     };
 
     const handleDeleteShop = async (shopId) => {
@@ -40,6 +40,7 @@ const ShopListEmployee = () => {
                 await axios.delete(`http://localhost:3001/api/v1/shop/shops/${shopId}`); // API xóa shop
                 setShops(shops.filter(shop => shop.id !== shopId)); // Cập nhật danh sách sau khi xóa
                 alert("Shop delete successfully!");
+
             } catch (error) {
                 console.error('Error deleting shop:', error);
                 setError('Failed to delete shop. Please try again later.');

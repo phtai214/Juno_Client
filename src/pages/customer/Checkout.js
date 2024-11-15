@@ -187,8 +187,10 @@ const Checkout = () => {
             // Xóa từng cart item khỏi cơ sở dữ liệu
             await deleteCartItems(cartItems);
 
+
             // Gọi handleRemoveItem cho từng item trong cartItems
             for (const item of cartItems) {
+
                 await handleRemoveItem(item.id, item.quantity);
             }
 

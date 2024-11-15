@@ -128,6 +128,7 @@ function UsersPage() {
                                     ) : (
                                         <img src='https://res.cloudinary.com/dhjrrk4pg/image/upload/v1715060332/user_1177568_mxilzq.png' alt="" width={40} height={40} className="userImg" />
                                     )}
+
                                     {user.name}
                                 </div>
                             </td>
