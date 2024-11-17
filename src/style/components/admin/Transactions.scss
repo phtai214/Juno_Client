@@ -1,124 +1,124 @@
-.tran-container{
-    background-color: var(--bgSoft);
-    padding: 20px;
-    border-radius: 10px;
-    .tran-title{
-        margin-bottom: 20px;
-        font-weight: 200;
-        color: var(--textSoft);
-       
+.tran-container {
+  background-color: var(--bgSoft);
+  padding: 20px;
+  border-radius: 10px;
+  .tran-title {
+    margin-bottom: 20px;
+    font-weight: 200;
+    color: var(--textSoft);
+  }
+  .table {
+    width: 100%;
+    td {
+      padding: 10px;
+      .tran-user {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .status {
+        border-radius: 5px;
+        padding: 5px;
+        font-size: 14px;
+        color: white;
+      }
+      .pending {
+        background-color: #2e374a;
+      }
+      .done {
+        background-color: #afd6ee75;
+      }
+      .cancelled {
+        background-color: #f7737375;
+      }
     }
-    .table{
-        width: 100%;
-        td{
-            padding:10px;
-           .tran-user{
-            display:flex;
-            gap:10px;
-            align-items: center;
-           } 
-           .status{
-            border-radius: 5px;
-            padding:5px;
-            font-size: 14px;
-            color: white;
-           }
-           .pending{
-            background-color: #2e374a;
-           }
-           .done{
-            background-color: #afd6ee75;
-           }
-           .cancelled{
-            background-color: #f7737375;
-           }
-        }
-        .booking-status-completed {
-            background-color: rgb(8, 224, 8);
-            padding: 10px;
-            border-radius: 8px;
-            width:max-content; 
-            color: white;
-            font-weight: bold;
-            font-size: 15px;
-        }
-        
-        .booking-status-pending {
-            background-color: orange; 
-            padding: 10px;
-            border-radius: 8px;
-            width:max-content;
-            color: white;
-            font-weight: bold;
-            font-size: 15px;
-        }
-        
-        .booking-status-cancelled {
-            background-color: red;
-            padding: 10px;
-            border-radius: 8px;
-            width:max-content;
-            color: white;
-            font-weight: bold;
-            font-size: 15px;
-        }
-        
-        .booking-status-shipping {
-            background-color: blue; 
-            padding: 10px;
-            border-radius: 15px;
-            width:max-content;
-        }
+    .booking-status-completed {
+      background-color: rgb(8, 224, 8);
+      padding: 10px;
+      border-radius: 8px;
+      width: max-content;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
     }
-    @media (max-width: 480px) {
-        padding: 15px; // Giảm padding cho màn hình nhỏ hơn
 
-        .tran-title {
-            font-size: 15px; // Kích thước tiêu đề nhỏ hơn
-        }
-
-        .table {
-            td {
-                padding: 5px; // Giảm padding của các ô
-                font-size: 10px; // Kích thước chữ nhỏ hơn
-                .tran-user{
-                    display:flex;
-                    gap:5px;
-                    align-items: center;
-                   } 
-                .status {
-                    font-size: 8px; // Kích thước chữ cho trạng thái nhỏ hơn
-                }
-                
-            }
-            .booking-status-completed {
-                background-color: green;
-                padding: 5px;
-                border-radius: 10px;
-                width:max-content; 
-            }
-            
-            .booking-status-pending {
-                background-color: orange; 
-                padding: 5px;
-                border-radius: 10px;
-                width:max-content;
-            }
-            
-            .booking-status-cancelled {
-                background-color: red;
-                padding: 5px;
-                border-radius: 10px;
-                width:max-content;
-            }
-            
-            .booking-status-shipping {
-                background-color: blue; 
-                padding: 5px;
-                border-radius: 10px;
-                width:max-content;
-            }
-            
-        }
+    .booking-status-pending {
+      background-color: rgb(253, 126, 20);
+      padding: 10px;
+      border-radius: 8px;
+      width: max-content;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
     }
+
+    .booking-status-cancelled {
+      background-color: rgb(220, 53, 69);
+      padding: 10px;
+      border-radius: 8px;
+      width: max-content;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .booking-status-shipping {
+      background-color: rgb(0, 123, 255);
+      padding: 10px;
+      border-radius: 8px;
+      width: max-content;
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }
+  @media (max-width: 480px) {
+    padding: 15px; // Giảm padding cho màn hình nhỏ hơn
+
+    .tran-title {
+      font-size: 15px; // Kích thước tiêu đề nhỏ hơn
+    }
+
+    .table {
+      td {
+        padding: 5px; // Giảm padding của các ô
+        font-size: 10px; // Kích thước chữ nhỏ hơn
+        .tran-user {
+          display: flex;
+          gap: 5px;
+          align-items: center;
+        }
+        .status {
+          font-size: 8px; // Kích thước chữ cho trạng thái nhỏ hơn
+        }
+      }
+      .booking-status-completed {
+        background-color: green;
+        padding: 5px;
+        border-radius: 10px;
+        width: max-content;
+      }
+
+      .booking-status-pending {
+        background-color: orange;
+        padding: 5px;
+        border-radius: 10px;
+        width: max-content;
+      }
+
+      .booking-status-cancelled {
+        background-color: red;
+        padding: 5px;
+        border-radius: 10px;
+        width: max-content;
+      }
+
+      .booking-status-shipping {
+        background-color: blue;
+        padding: 5px;
+        border-radius: 10px;
+        width: max-content;
+      }
+    }
+  }
 }

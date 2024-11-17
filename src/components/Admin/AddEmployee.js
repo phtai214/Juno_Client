@@ -125,7 +125,7 @@ const AddEmployee = () => {
             onChange={(e) => setPosition(e.target.value)}
           >
             <option value="">Select Position</option>
-            <option value="admin">Admin</option>
+            {/* <option value="admin">Admin</option> */}
             <option value="employee">Employee</option>
           </select>
         </div>
