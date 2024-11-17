@@ -31,15 +31,14 @@ const LoginComponent = () => {
                 password: credentials.password,
             });
             const user = response.data.user;
-            const { id, name, role, permissions } = user; // Giả sử `permissions` cũng được trả về trong user
- const permissionsString = (typeof permissions === 'string') ? permissions : '';
-            // Lưu thông tin người dùng và permissions vào localStorage
+            const { id, name, role, permissions, status } = user;
+            const permissionsString = (status === 'active' && typeof permissions === 'string') ? permissions : '';            // Lưu thông tin người dùng và permissions vào localStorage
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('userId', id);
             localStorage.setItem('userRole', role);
             localStorage.setItem('userName', name);
             localStorage.setItem('userEmail', credentials.email);
- localStorage.setItem('permissions', permissionsString);
+            localStorage.setItem('permissions', permissionsString);
             // Dispatch actions để cập nhật Redux state
             dispatch(loginSuccess(response.data));
             dispatch(setUser(user));

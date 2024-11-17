@@ -15,38 +15,37 @@ const EmployeeList = () => {
     const [employeeToDelete, setEmployeeToDelete] = useState(null);
     const employeesPerPage = 5;
 
+    const fetchEmployees = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/api/v1/user');
+            const filteredEmployees = response.data.users.filter(user => user.role === 'employee');
+
+            // Kiểm tra dữ liệu thô
+            console.log('Raw employee data:', filteredEmployees);
+
+            const employeesWithPermissions = filteredEmployees.map(employee => {
+                let parsedPermissions = [];
+                if (typeof employee.permissions === 'string') {
+                    parsedPermissions = employee.permissions.replace(/"/g, '').split(',').map(item => item.trim());
+                } else if (Array.isArray(employee.permissions)) {
+                    parsedPermissions = employee.permissions;
+                }
+
+                return {
+                    ...employee,
+                    permissions: parsedPermissions
+                };
+            });
+
+            console.log('Processed employees with permissions:', employeesWithPermissions);
+            setEmployees(employeesWithPermissions);
+        } catch (error) {
+            console.error('Error fetching employees:', error);
+        }
+    };
+
+    // Gọi fetchEmployees trong useEffect
     useEffect(() => {
-        const fetchEmployees = async () => {
-            try {
-                const response = await axios.get('http://localhost:3001/api/v1/user');
-                const filteredEmployees = response.data.users.filter(user => user.role === 'employee');
-
-                // Kiểm tra dữ liệu thô
-                console.log('Raw employee data:', filteredEmployees);
-
-                const employeesWithPermissions = filteredEmployees.map(employee => {
-                    // Chuyển đổi permissions từ chuỗi thành mảng
-                    let parsedPermissions = [];
-                    if (typeof employee.permissions === 'string') {
-                        // Xóa ký tự escape và tách chuỗi thành mảng
-                        parsedPermissions = employee.permissions.replace(/"/g, '').split(',').map(item => item.trim());
-                    } else if (Array.isArray(employee.permissions)) {
-                        parsedPermissions = employee.permissions;
-                    }
-
-                    return {
-                        ...employee,
-                        permissions: parsedPermissions
-                    };
-                });
-
-                console.log('Processed employees with permissions:', employeesWithPermissions); // Kiểm tra dữ liệu đã xử lý
-
-                setEmployees(employeesWithPermissions);
-            } catch (error) {
-                console.error('Error fetching employees:', error);
-            }
-        };
         fetchEmployees();
     }, []);
     const filteredEmployees = employees.filter(employee => {
@@ -77,24 +76,26 @@ const EmployeeList = () => {
         setRoleFilter(e.target.value);
     };
 
-    const confirmDelete = (employeeId) => {
-        setEmployeeToDelete(employeeId);
-        setDeleteConfirm(true);
-    };
 
-    const handleDeleteEmployee = async () => {
-        if (employeeToDelete) {
-            try {
-                await axios.delete(`http://localhost:3001/api/v1/user/${employeeToDelete}`);
-                setEmployees(employees.filter(employee => employee._id !== employeeToDelete));
-                alert("Xóa nhân viên thành công");
-                setDeleteConfirm(false);
-                setEmployeeToDelete(null);
-            } catch (error) {
-                console.error('Error deleting employee:', error);
-            }
+    const handleDeleteEmployee = async (employeeId) => {
+        console.log("check id >>>", employeeId);
+        if (!employeeId) return;
+
+        try {
+            await axios.delete(`http://localhost:3001/api/v1/user/${employeeId}`);
+            alert("Xóa nhân viên thành công");
+
+            // Gọi lại API để lấy danh sách nhân viên mới
+            fetchEmployees(); // Gọi lại hàm fetchEmployees để cập nhật danh sách
+        } catch (error) {
+            console.error('Error deleting employee:', error);
+            alert('Có lỗi xảy ra khi xóa nhân viên');
+        } finally {
+            setDeleteConfirm(false);
+            setEmployeeToDelete(null);
         }
     };
+
 
     // Hàm chuyển đổi permissions object thành chuỗi
     // Hàm chuyển đổi permissions object thành chuỗi
@@ -184,7 +185,10 @@ const EmployeeList = () => {
                                     </ul>
                                 </td>
                                 <td>
-                                    <button onClick={(e) => { e.stopPropagation(); confirmDelete(employee._id); }}>Xóa</button>
+                                    <button onClick={(e) => {
+                                        e.stopPropagation(); // Ngăn chặn sự kiện click trên hàng
+                                        handleDeleteEmployee(employee.id);
+                                    }}>Xóa</button>
                                 </td>
                             </tr>
                         ))
@@ -204,13 +208,7 @@ const EmployeeList = () => {
                 activeClassName={'active'}
             />
 
-            {deleteConfirm && (
-                <div className="delete-confirmation">
-                    <p>Bạn có chắc chắn muốn xóa nhân viên này không?</p>
-                    <button onClick={handleDeleteEmployee}>Xác nhận</button>
-                    <button onClick={() => setDeleteConfirm(false)}>Hủy</button>
-                </div>
-            )}
+
         </div>
     );
 };

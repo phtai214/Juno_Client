@@ -13,7 +13,7 @@ const AddEmployee = () => {
         manageProducts: false,
         manageOrders: false,
         manageCustomers: false,
-        customerSupport: false,
+        manageShops: false
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -29,8 +29,8 @@ const AddEmployee = () => {
         return password.length >= 6;
     };
 
-    const handlePermissionChange = (event) => {
-        const { name, checked } = event.target;
+    const handlePermissionChange = (e) => {
+        const { name, checked } = e.target;
         setPermissions((prevPermissions) => ({
             ...prevPermissions,
             [name]: checked,
@@ -52,6 +52,12 @@ const AddEmployee = () => {
             return;
         }
 
+        const permissionsArray = [];
+        if (permissions.manageProducts) permissionsArray.push('Manage products');
+        if (permissions.manageOrders) permissionsArray.push('Manage orders');
+        if (permissions.manageCustomers) permissionsArray.push('Manage customers');
+        if (permissions.customerSupport) permissionsArray.push('Customer support');
+        console.log("check permissionsArray", permissionsArray)
         try {
             const response = await axios.post('http://localhost:3001/api/v1/user/employee', {
                 name,
@@ -59,12 +65,14 @@ const AddEmployee = () => {
                 password,
                 position,
                 status,
-                permissions, // Gửi permissions cùng với yêu cầu
+                permissions: permissionsArray, // Đảm bảo permissionsArray được gửi
                 role: 'employee'
             });
-            if (response.status === 200) {
+            if (response.data.err === 0) {
                 setSuccess('Nhân viên đã được thêm thành công');
-                navigate('/admin/employees'); // Chuyển hướng đến danh sách nhân viên
+                navigate('/admin/employees');
+            } else {
+                setError(response.data.mes); // Hiển thị lỗi từ server
             }
         } catch (error) {
             setError('Có lỗi xảy ra khi thêm nhân viên');
@@ -104,13 +112,14 @@ const AddEmployee = () => {
                     required
                 />
 
-                <label htmlFor="position">Chức vụ:</label>
-                <input
-                    type="text"
-                    id="position"
-                    value={position}
-                    onChange={(e) => setPosition(e.target.value)}
-                />
+                <div className="form-group">
+                    <label htmlFor="position">Position:</label> {/* Thay đổi thành dropdown */}
+                    <select id="position" name="position" value={position} onChange={(e) => setPosition(e.target.value)}>
+                        <option value="">Select Position</option>
+                        <option value="admin">Admin</option>
+                        <option value="employee">Employee</option>
+                    </select>
+                </div>
 
                 <label htmlFor="status">Trạng thái:</label>
                 <select
