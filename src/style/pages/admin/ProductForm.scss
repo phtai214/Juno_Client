@@ -3,7 +3,7 @@ $product-border-color: #e0e0e0;
 $product-primary-color: #007bff;
 $product-danger-color: #dc3545;
 $product-success-color: #28a745;
-$product-font-family: 'Roboto', sans-serif;
+$product-font-family: "Roboto", sans-serif;
 
 .product-form {
   max-width: 800px;
@@ -14,7 +14,7 @@ $product-font-family: 'Roboto', sans-serif;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   font-family: $product-font-family;
 
-  h1 {
+  h2 {
     text-align: center;
     color: $product-primary-color;
     margin-bottom: 20px;
@@ -30,9 +30,9 @@ $product-font-family: 'Roboto', sans-serif;
       color: #333;
     }
 
-    input[type='text'],
-    input[type='number'],
-    input[type='file'],
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
     select,
     textarea {
       width: 100%;
@@ -78,7 +78,7 @@ $product-font-family: 'Roboto', sans-serif;
         transform: translateY(0);
       }
     }
-    .btn.btn-primary{
+    .btn.btn-primary {
       margin: 20px 20px 20px 0;
     }
   }
@@ -114,8 +114,8 @@ $product-font-family: 'Roboto', sans-serif;
     .form-group {
       margin-bottom: 10px;
 
-      input[type='text'],
-      input[type='number'],
+      input[type="text"],
+      input[type="number"],
       select,
       textarea {
         font-size: 14px;

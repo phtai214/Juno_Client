@@ -1,7 +1,7 @@
 // Main Order page styles
 .order-container {
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 
   .orderTitle {
     font-size: 24px;
@@ -50,39 +50,42 @@
     flex-direction: column;
     width: 20%;
     .lb-filter {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #333;
-        margin-bottom: 0.5rem; // Khoảng cách giữa nhãn và dropdown
+      font-size: 1rem;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 0.5rem; // Khoảng cách giữa nhãn và dropdown
     }
 
     .status-filter {
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 1rem;
-        color: #333;
-        background-color: #fff;
-        transition: border-color 0.3s ease;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      color: #333;
+      background-color: #fff;
+      transition: border-color 0.3s ease;
 
-        &:focus {
-            outline: none;
-            border-color: #007bff; // Đổi màu viền khi focus
-            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); // Hiệu ứng đổ bóng khi focus
-        }
+      &:focus {
+        outline: none;
+        border-color: #007bff; // Đổi màu viền khi focus
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); // Hiệu ứng đổ bóng khi focus
+      }
 
-        option {
-            font-size: 1rem; // Kích thước chữ cho các option
-        }
+      option {
+        font-size: 1rem; // Kích thước chữ cho các option
+      }
     }
   }
 
   .table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-
-    th, td {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    th,
+    td {
       padding: 12px;
       font-size: 14px;
       border-bottom: 1px solid #ddd;
@@ -90,7 +93,7 @@
     }
 
     th {
-      background-color: #f8f8f8;
+      background-color: rgb(241, 241, 241);
       font-weight: bold;
     }
 
@@ -105,7 +108,8 @@
         text-overflow: ellipsis; // Hiển thị "..." khi bị cắt
         white-space: nowrap; // Không cho xuống dòng
       }
-      .delete, .update {
+      .delete,
+      .update {
         padding: 6px 12px;
         border: none;
         border-radius: 5px;
@@ -216,7 +220,8 @@
       }
     }
   }
-  .delete, .update {
+  .delete,
+  .update {
     padding: 8px 16px; // Tăng kích thước padding
     border: none;
     border-radius: 5px;
@@ -245,7 +250,6 @@
       }
     }
   }
-
 }
 
 // Mobile responsiveness
@@ -255,7 +259,8 @@
       font-size: 20px;
     }
 
-    .btn-create, .search-input {
+    .btn-create,
+    .search-input {
       width: 100%;
       font-size: 14px;
     }
@@ -263,12 +268,14 @@
     .borderFilterMobile {
       flex-direction: column;
 
-      .lb-filter, .custom-dropdown__select {
+      .lb-filter,
+      .custom-dropdown__select {
         width: 100%;
       }
     }
 
-    .table th, .table td {
+    .table th,
+    .table td {
       font-size: 14px;
     }
 
@@ -289,57 +296,54 @@
       flex-direction: column;
       width: 90%;
       .lb-filter {
-          font-size: 0.5rem;
-          font-weight: 500;
-          color: #333;
-          margin-bottom: 0.2rem; // Khoảng cách giữa nhãn và dropdown
+        font-size: 0.5rem;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 0.2rem; // Khoảng cách giữa nhãn và dropdown
       }
-  
+
       .status-filter {
-          padding: 0.2rem;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          font-size: 12px;
-          color: #333;
-          background-color: #fff;
-          transition: border-color 0.3s ease;
-  
-          &:focus {
-              outline: none;
-              border-color: #007bff; // Đổi màu viền khi focus
-              box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); // Hiệu ứng đổ bóng khi focus
-          }
-  
-          option {
-              font-size:  12px; // Kích thước chữ cho các option
-          }
+        padding: 0.2rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 12px;
+        color: #333;
+        background-color: #fff;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #007bff; // Đổi màu viền khi focus
+          box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); // Hiệu ứng đổ bóng khi focus
+        }
+
+        option {
+          font-size: 12px; // Kích thước chữ cho các option
+        }
       }
     }
     .table {
-      th, td {
+      th,
+      td {
         &:first-child {
           padding-left: 5px;
         }
-  
+
         &:last-child {
           padding-right: 0;
         }
-          &:nth-child(1),
+        &:nth-child(1),
           &:nth-child(3), 
           &:nth-child(4), // Email
-          &:nth-child(5) { // Phone Number
-              display: none; // Ẩn các cột Email và Phone Number
-          }
-          tr{
-            display:flex ;
-            align-items: center;
-          }
-      
-  
-  
-          
+          &:nth-child(5) {
+          // Phone Number
+          display: none; // Ẩn các cột Email và Phone Number
+        }
+        tr {
+          display: flex;
+          align-items: center;
+        }
       }
+    }
   }
-  }
-  
 }

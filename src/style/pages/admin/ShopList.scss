@@ -1,140 +1,148 @@
 .shop-list-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
-    h1 {
-      font-size: 1.8rem;
-      color: #333;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-  
-    .create-shop-button {
-      display: block;
-      margin: 0 auto 20px;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 500;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-  
-      &:hover {
-        background-color: #0056b3;
-      }
-    }
-  
-    .error-message {
-      text-align: center;
-      color: #d9534f;
-      font-size: 1rem;
-      padding: 10px;
-    }
-  
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-  
-      th, td {
-        padding: 15px;
-        text-align: left;
-      }
-  
-      th {
-        background-color: #007bff;
-        color: #fff;
-        font-weight: 600;
-        border-bottom: 2px solid #007bff;
-      }
-  
-      td {
-        background-color: #fff;
-        color: #333;
-        border-bottom: 1px solid #e0e0e0;
-      }
-  
-      tr:nth-child(even) td {
-        background-color: #f3f3f3;
-      }
-  
-      tbody tr:hover {
-        background-color: #e9ecef;
-      }
-    }
-  
-    .edit-button,
-    .delete-button {
-      padding: 8px 15px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-  
-    .edit-button {
-      background-color: #ffc107;
-      color: #333;
-      margin-right: 10px;
-  
-      &:hover {
-        background-color: #e0a800;
-      }
-    }
-  
-    .delete-button {
-      background-color: #dc3545;
-      color: #fff;
-  
-      &:hover {
-        background-color: #c82333;
-      }
-    }
-  
-    // Responsive styles
-    @media (max-width: 768px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-        width: 100%;
-      }
-  
-      thead {
-        display: none;
-      }
-  
-      tr {
-        margin-bottom: 10px;
-        border: 1px solid #e0e0e0;
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
-  
-      td {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        font-size: 0.9rem;
-      }
-  
-      td::before {
-        content: attr(data-label);
-        font-weight: 600;
-        color: #007bff;
-      }
-  
-      .create-shop-button {
-        width: 100%;
-      }
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .create-shop-button {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
     }
   }
-  
+
+  .error-message {
+    text-align: center;
+    color: #d9534f;
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+
+    th,
+    td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+      font-weight: 600;
+      border-bottom: 2px solid #007bff;
+    }
+
+    td {
+      background-color: #fff;
+      color: #333;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f3f3f3;
+    }
+
+    tbody tr:hover {
+      background-color: #e9ecef;
+    }
+  }
+
+  .edit-button,
+  .delete-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .edit-button {
+    background-color: #ffc107;
+    color: #333;
+    margin-right: 10px;
+
+    &:hover {
+      background-color: #e0a800;
+    }
+  }
+
+  .delete-button {
+    background-color: #dc3545;
+    color: #fff;
+
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+
+  // Responsive styles
+  @media (max-width: 768px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+      width: 100%;
+    }
+
+    thead {
+      display: none;
+    }
+
+    tr {
+      margin-bottom: 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: #007bff;
+    }
+
+    .create-shop-button {
+      width: 100%;
+    }
+  }
+}

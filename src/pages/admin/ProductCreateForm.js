@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../../style/pages/admin/ProductForm.scss";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const ProductCreateForm = () => {
   const [name, setName] = useState("");
@@ -81,7 +81,6 @@ const ProductCreateForm = () => {
       { size: "", color: "", imageUrl: "", quantity: 0 },
     ]);
   };
-
 
   const handleRemoveVariation = (index) => {
     const newVariations = variations.filter((_, i) => i !== index);
@@ -165,7 +164,7 @@ const ProductCreateForm = () => {
         },
       });
       alert("Product created successfully!");
-      navigate('/admin/products')
+      navigate("/admin/products");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -173,7 +172,7 @@ const ProductCreateForm = () => {
 
   return (
     <div className="product-form">
-      <h1>Create New Product</h1>
+      <h2>Thêm Sản Phẩm Mới</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Tên Sản Phẩm:</label>
@@ -221,7 +220,7 @@ const ProductCreateForm = () => {
             <option value="Túi cỡ nhỏ">Túi cỡ nhỏ</option>
             <option value="Túi cỡ lớn">Túi cỡ lớn</option>
             <option value="Balo">Balo</option>
-            <option value="Ví - Clutch">Ví - Clutch</option>
+            <option value="Ví-Clutch">Ví - Clutch</option>
           </select>
         </div>
 
@@ -233,7 +232,14 @@ const ProductCreateForm = () => {
         <div className="form-group">
           <label>Tags:</label>
           <div>
-            {["New", "Moda Feminia", "Golden Hour", "Autumn Knit", "Back To Cool", "FLASH-SALE"].map((tag) => (
+            {[
+              "New",
+              "Moda Feminia",
+              "Golden Hour",
+              "Autumn Knit",
+              "Back To Cool",
+              "FLASH-SALE",
+            ].map((tag) => (
               <label key={tag}>
                 <input
                   type="checkbox"
@@ -400,7 +406,9 @@ const ProductCreateForm = () => {
           Thêm Biến Thể Mới
         </button>
 
-        <button className="btn-create-product" type="submit">Create Product</button>
+        <button className="btn-create-product" type="submit">
+          Create Product
+        </button>
       </form>
     </div>
   );

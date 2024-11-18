@@ -184,7 +184,7 @@ const UpdateProductEmployee = () => {
 
   return (
     <div className="product-form">
-      <h1>Edit Product</h1>
+      <h2>Edit Product</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Product Name:</label>
@@ -232,7 +232,7 @@ const UpdateProductEmployee = () => {
             <option value="Túi cỡ nhỏ">Túi cỡ nhỏ</option>
             <option value="Túi cỡ lớn">Túi cỡ lớn</option>
             <option value="Balo">Balo</option>
-            <option value="Ví - Clutch">Ví - Clutch</option>
+            <option value="Ví-Clutch">Ví-Clutch</option>
           </select>
         </div>
 

@@ -90,7 +90,7 @@ function UsersPageEmployee() {
 
   return (
     <div className="user-container">
-      <h2 className="userTitle">User</h2>
+      <h1 className="userTitle">User List</h1>
 
       {/* Search input */}
       <div className="filters">

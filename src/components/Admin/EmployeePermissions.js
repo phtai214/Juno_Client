@@ -128,7 +128,7 @@ const EmployeePermissions = () => {
 
   return (
     <div className="employee-permissions-container">
-      <h2>Phân quyền nhân viên</h2>
+      <h2>Chỉnh sửa nhân viên</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
